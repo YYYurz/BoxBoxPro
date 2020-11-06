@@ -1,0 +1,17 @@
+/BoxBoxPro/.idea/
+/BoxBoxPro/Library/
+/BoxBoxPro/Logs
+/BoxBoxPro/obj/
+/BoxBoxPro/Packages/
+/BoxBoxPro/Temp/
+/BoxBoxPro/UserSettings/
+/.idea/
+/Library/
+/Logs
+/obj/
+/Packages/
+/Temp/
+/UserSettings/
+*.csproj
+*.sln
+*.user

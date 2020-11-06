@@ -1,0 +1,75 @@
+-- 4、虽然支持Update、LateUpdate、FixedUpdate更新，但是UI组件最好不要使用---不要定义这些函数即可
+-- 5、需要定时刷新的界面，最好启用定时器、协程，界面需要刷新的频率一般较低，倒计时之类的只需要每秒钟更新一次即可
+
+local UIFormBase = BaseClass("UIFormBase", Updatable)
+local base = Updatable
+
+local LuaCall = CS.Hr.LuaCallStatic
+
+local function __init(self)
+end
+
+local function OnCreate(self, transform, objs)
+	self.transform = transform
+	self.arrUnityEventBase = {}
+	self.tableEventListener = {}
+	self.tableLoadAsset = {}
+end
+
+local function OnOpen(self, serializeID, objs)
+	self.serializeID = serializeID
+end
+
+local function OnEnable(self)
+end
+
+local function OnDestroy(self)
+	for k, _v in pairs(self.arrUnityEventBase) do
+		k:RemoveAllListeners()
+		k:Invoke()
+	end
+
+	self.arrUnityEventBase = {}
+end
+
+local function OnClose(self)
+	for k, v in pairs(self.tableEventListener) do
+		LuaCall.RemoveEvent(k, v)
+	end
+
+	self.tableEventListener = {}
+
+	for k,v in pairs(self.tableLoadAsset) do
+		LuaCall.UnloadAsset(v)
+	end
+	self.tableLoadAsset = {}
+end
+
+local function AddListener(self, unityEventBase, func)
+	unityEventBase.AddListener(unityEventBase, func)
+	self.arrUnityEventBase[unityEventBase] = 1
+end
+
+local function AddEventListener(self, nEventID, func)
+	if self.tableEventListener[nEventID] == nil then
+		LuaCall.AddEvent(nEventID, func)
+		self.tableEventListener[nEventID] = func
+	else
+		Logger.LogError("这个ID已经注册过监听事件了 " .. nEventID)
+	end
+end
+
+local function AddLoadAsset(self, nAsset)
+	table.insert( self.tableLoadAsset, nAsset )
+end
+
+UIFormBase.OnCreate = OnCreate
+UIFormBase.OnOpen = OnOpen
+UIFormBase.OnEnable = OnEnable
+UIFormBase.OnDestroy = OnDestroy
+UIFormBase.OnClose = OnClose
+UIFormBase.AddListener = AddListener
+UIFormBase.AddEventListener = AddEventListener
+UIFormBase.LuaCall = LuaCall
+UIFormBase.AddLoadAsset = AddLoadAsset
+return UIFormBase

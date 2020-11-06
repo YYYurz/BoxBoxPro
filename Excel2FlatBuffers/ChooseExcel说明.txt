@@ -1,0 +1,7 @@
+指定Excel生成时在ChooseExcel.txt文件中每行输入指定Excel文件的名字
+如
+
+DTGameConfig
+DTItemExchangeData
+
+注：一般不要修改ChooseExcel.txt文件  在Unity的Tools/Excel2FlatBuffersTool工具中使用

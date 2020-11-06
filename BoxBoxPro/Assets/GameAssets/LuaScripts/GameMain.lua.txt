@@ -1,0 +1,29 @@
+-- 全局模块
+require "Global.Global"
+
+-- 定义为全局模块，整个lua程序的入口类
+GameMain = {}
+
+--主入口函数。从这里开始lua逻辑
+local function Start()
+	print("GameMain start...")
+
+	LuaCSharpDataHelper:Startup()
+	LuaFormManager:Startup()
+
+	-- 模块启动
+	UpdateManager:GetInstance():Startup()
+	TimerManager:GetInstance():Startup()
+end
+
+local function OnApplicationQuit()
+	-- 模块注销
+	UpdateManager:GetInstance():Dispose()
+	TimerManager:GetInstance():Dispose()
+end
+
+-- GameMain公共接口，其它的一律为私有接口，只能在本模块访问
+GameMain.Start = Start
+GameMain.OnApplicationQuit = OnApplicationQuit
+
+return GameMain
