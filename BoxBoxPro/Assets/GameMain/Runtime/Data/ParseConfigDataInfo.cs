@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hr
+namespace BB
 {
     public class ParseConfigDataInfo
     {

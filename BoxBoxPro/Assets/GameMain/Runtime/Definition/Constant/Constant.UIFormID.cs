@@ -25,7 +25,10 @@ namespace BB
             public const int Undefined = 0; //空白界面
             public const int UITipsForm = 1; //纯文字提示框
             public const int UIFormHideMask = 10; // 屏蔽点击界面
+
+            public const int StartWindow = 111;
             /// <summary>
+            
             /// 登录界面
             /// </summary>
 

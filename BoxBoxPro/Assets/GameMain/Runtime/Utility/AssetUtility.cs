@@ -128,18 +128,6 @@ namespace BB
             }
         }
 
-        //爆金模式RandSwatch路径
-        // public static string GetMoneyRandswatchAsset(int nRoomType)
-        // {
-        //     return Path.Combine(Constant.AssetPath.RandswatchFolder, Utility.Text.Format("randswatch_{0}.asset", nRoomType));
-        // }
-        //
-        // //闯关模式RandSwatch路径
-        // public static string GetSurviveRandswatchAsset(int tollgateID)
-        // {
-        //     return Path.Combine(Constant.AssetPath.SurviveRandswatchFolder, Utility.Text.Format("survive_randswatch_{0}.asset", tollgateID));
-        // }
-        //
         // /// <summary>
         // /// UI
         // /// </summary>
@@ -161,20 +149,6 @@ namespace BB
         // }
 
         #region ENTITY
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="strPrefabName"></param>
-        /// <returns></returns>
-        // public static string GetPlayerAircraftAsset(string strPrefabName)
-        // {
-        //     return Utility.Text.Format(Constant.AssetPath.PlayerAircraftFolder, strPrefabName);
-        // }
-        //
-        // public static string GetPlayerBulletAsset(string strPrefabName)
-        // {
-        //     return Utility.Text.Format(Constant.AssetPath.PlayerBulletFolder, strPrefabName);
-        // }
         //
         // /// <summary>
         // /// 获取敌机的资源路径

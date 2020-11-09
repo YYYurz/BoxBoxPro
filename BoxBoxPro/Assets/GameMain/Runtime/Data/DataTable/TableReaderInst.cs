@@ -44,27 +44,6 @@ public class DTSoundDataTableReader : TableReader<DTSoundData, DTSoundDataList, 
     }
 }
 
-public class DTTestTableReader : TableReader<DTTest, DTTestList, DTTestTableReader>
-{
-    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTTest.bytes";   
-    protected override DTTest? GetData(DTTestList dataList, int i)
-    {
-        return dataList.Data(i);
-    }
-    protected override int GetDataLength(DTTestList dataList)
-    {
-        return dataList.DataLength;
-    }
-    protected override uint GetKey(DTTest data)
-    {
-        return data.Id;
-    }
-    protected override DTTestList GetTableDataList(ByteBuffer byteBuffer)
-    {
-        return DTTestList.GetRootAsDTTestList(byteBuffer);
-    }
-}
-
 public class DTUIFormDataTableReader : TableReader<DTUIFormData, DTUIFormDataList, DTUIFormDataTableReader>
 {
     public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTUIFormData.bytes";   

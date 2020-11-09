@@ -24,7 +24,8 @@
             public const string GameAppScene = "GameAssets/Scenes/0_GameApp";
             public const string CheckVersionScene = "GameAssets/Scenes/1_GameCheckVersion";
 
-
+            public static string UIFormFolder = "Assets/GameAssets/UI/{0}.prefab";
+            public static string SoundFolder = "Assets/GameAssets/ModelResources/{0}.mp3";
 
             /// <summary>
             /// 用框架的加载scene逻辑的话，必须加上Assets，后缀加上unity

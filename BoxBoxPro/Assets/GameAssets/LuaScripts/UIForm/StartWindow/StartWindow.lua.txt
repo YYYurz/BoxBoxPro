@@ -1,0 +1,24 @@
+﻿local UILobbyForm = BaseClass("StartWindow", UIFormBase)
+LuaFormManager.formClassDict["StartWindow"] = UILobbyForm
+local base = UIFormBase
+
+local function OnCreate(self, transform, objs)
+	base.OnCreate(self, transform, objs)
+	print("OnCreate")
+end
+
+local function OnOpen(self, serializeID, objs)
+	base.OnOpen(self, serializeID, objs)
+	print("OnOpen")
+end
+
+local function OnClose(self)
+	base.OnClose(self)
+	print("OnClose")
+end
+
+UILobbyForm.OnCreate = OnCreate
+UILobbyForm.OnOpen = OnOpen
+UILobbyForm.OnClose = OnClose
+
+return StartWindow

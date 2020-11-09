@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace Hr
+namespace BB
 {
     public class DataTableAssets
     {

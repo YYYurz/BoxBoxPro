@@ -48,13 +48,13 @@ namespace BB
                 {
                     return null;
                 }
-        
+            
                 if (uiComponent.HasUIForm(strAssetPath))
                 {
                     return null;
                 }
             }
-        
+            
             UIFormOpenDataInfo uiFormOpenDataInfo = UIFormOpenDataInfo.Create(uiFormId, uiFormDataTable.Value.LuaFile, userData);
             return uiComponent.OpenUIForm(strAssetPath, uiFormDataTable.Value.UIGroupName, Constant.AssetPriority.UIFormAsset, (uiFormDataTable.Value.PauseCoveredUIForm == 1), uiFormOpenDataInfo);
         }

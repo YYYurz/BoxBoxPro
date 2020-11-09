@@ -1,0 +1,72 @@
+--[[
+-- added by wsh @ 2017-11-30
+-- 1、加载全局模块，所有全局性的东西都在这里加载，好集中管理
+-- 2、模块定义时一律用local再return，模块是否是全局模块由本脚本决定，在本脚本加载的一律为全局模块
+-- 3、对必要模块执行初始化
+-- 注意：
+-- 1、全局的模块和被全局模块持有的引用无法GC，除非显式设置为nil
+-- 2、除了单例类、通用的工具类、逻辑上的静态类以外，所有逻辑模块不要暴露到全局命名空间
+-- 3、Unity侧导出所有接口到CS命名空间，访问cs侧函数一律使用CS.xxx，命名空间再cs代码中给了，这里不需要处理
+-- 4、这里的全局模块是相对与游戏框架或者逻辑而言，lua语言层次的全局模块放Common.Main中导出
+--]]
+-- 加载全局模块
+require "Framework.Common.BaseClass"
+
+--LuaList = require "Common.LuaList"
+--LuaQueue = require "Common.LuaQueue"
+--ObjectPool = require "Common.ObjectPool"
+
+-- 创建全局模块
+--Logger = require "Framework.Logger.Logger"
+--Singleton = require "Framework.Common.Singleton"
+--Updatable = require "Framework.Common.Updatable"
+--UpdatableSingleton = require "Framework.Common.UpdatableSingleton"
+--TimeUtil = require "Common.TimeUtil"
+--EnumDataType = require "Data.EnumDataType"
+
+-- ui base
+--UIUtil = require "Framework.UI.Util.UIUtil"
+--LuaCSharpArr = require "Framework.LuaCSharpData.LuaCSharpArr"
+--LuaCSharpDataHelper = require "Framework.LuaCSharpData.LuaCSharpDataHelper"
+
+-- ui window
+UIFormBase = require "UIForm.UIFormBase"
+LuaFormManager = require "Framework.UI.LuaFormManager"
+
+-- word check
+--WordCheckUtil = require "Common.WordCheckUtil"
+
+-- update & time
+--Timer = require "Framework.Updater.Timer"
+--TimerManager = require "Framework.Updater.TimerManager"
+--UpdateManager = require "Framework.Updater.UpdateManager"
+
+-- Global ID
+--ItemID = require "Data.HrConstantItem"
+--HrConstantGame = require "Data.HrConstantGame"
+UIFormID = require "Data.BBConstantUIFormID"
+--SoundID = require "Data.HrConstantSoundID"
+--GameSettingData = require "Data.HrConstantGameSettingData"
+--HrConstantMSG = require "Data.HrNetNETWORK_MSG"
+--DTConfigID = require "Data.HrConstantDTGameConfig"
+--EnumServerItemId = require "Data.EnumServerItemId"
+--EnumExchangeType = require "Data.EnumExchangeType"
+--UserInfoFieldName = require "Data.EnumUserInfoFieldName"
+--EnumLobby = require "Data.EnumLobbyType"
+--TextDescription = require "Data.HrConstantTextDescription"
+--ConstantSpecialData = require "Data.HrConstantSpecialGameData"
+--EnumNoviceGuideStepsType = require "Data.HrGameEnumTypeNOVICE_GUIDE_STEPS"
+--
+--NetReceiver = require "Framework.Network.NetReceiver"
+--NetSender = require "Framework.Network.NetSender"
+--
+--GameDataManager = require "GameData.GameDataManager"
+
+-- Event
+--GameLuaEvent = require "GameLogic.GameLuaEvent"
+
+--Task
+--ConditionsTask = require "Task.ConditionsTask"
+
+--Json
+--JsonUtil = require "Common.JsonUtil"

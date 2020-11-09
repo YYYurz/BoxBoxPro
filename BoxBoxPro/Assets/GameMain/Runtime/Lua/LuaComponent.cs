@@ -14,7 +14,7 @@ using UnityGameFramework.Runtime;
 using XLua;
 
 /// <summary>
-/// Lua组件
+/// Lua组件game
 /// </summary>
 namespace BB
 {

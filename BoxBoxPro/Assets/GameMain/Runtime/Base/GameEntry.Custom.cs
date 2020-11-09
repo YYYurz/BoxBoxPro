@@ -19,12 +19,12 @@ namespace BB
         // /// <summary>
         // /// 游戏运行数据
         // /// </summary>
-        // public static GameDataComponent GameData
-        // {
-        //     get;
-        //     private set;
-        // }
-        //
+        public static GameDataComponent GameData
+        {
+            get;
+            private set;
+        }
+        
         // /// <summary>
         // /// 定时器
         // /// </summary>
@@ -54,8 +54,7 @@ namespace BB
 
         private static void InitCustomComponents()
         {
-            // PhotonNet = UnityGameFramework.Runtime.GameEntry.GetComponent<PhotonNetWorkComponent>();
-            // GameData = UnityGameFramework.Runtime.GameEntry.GetComponent<GameDataComponent>();
+            GameData = UnityGameFramework.Runtime.GameEntry.GetComponent<GameDataComponent>();
             // Timer = UnityGameFramework.Runtime.GameEntry.GetComponent<TimerComponent>();
             // GameLogic = UnityGameFramework.Runtime.GameEntry.GetComponent<GameLogicComponent>();
             Lua = UnityGameFramework.Runtime.GameEntry.GetComponent<LuaComponent>();
