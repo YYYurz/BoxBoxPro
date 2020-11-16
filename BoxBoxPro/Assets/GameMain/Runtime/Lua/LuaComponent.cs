@@ -9,7 +9,6 @@ using GameFramework.Resource;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityGameFramework.Runtime;
 using XLua;
 
@@ -48,7 +47,6 @@ namespace BB
                 return;
             }
 
-            Addressables.LoadAssetAsync<TextAsset>("");
             CacheLuaDict = new Dictionary<string, string>();
             _luaEnv = new LuaEnv();
             // LuaArrAccessAPI.RegisterPinFunc(_luaEnv.L);
@@ -97,29 +95,29 @@ namespace BB
         /// <param name="content">配置列表内容</param>
         private void ParseLuaFilesConfig(string content)
         {
-            // if (LuaFileInfos == null)
-            // {
-            //     Log.Error("ParseLuaFilesConfig Error!!!!!! LuaFileInfos is null!");
-            // }
-            // LuaFileInfos.Clear();
-            // var contentLines = content.Split('\n');
-            // var len = contentLines.Length;
-            // for (var i = 0; i < len; i++)
-            // {
-            //     if (string.IsNullOrEmpty(contentLines[i]))
-            //     {
-            //         return;
-            //     }
-            //     var info = GameUtils.DeserializeObject<LuaFileInfo>(contentLines[i]);
-            //     if (info == null)
-            //     {
-            //         Log.Error("invalid pase result!");
-            //     }
-            //     else
-            //     {
-            //         LuaFileInfos.Add(info);
-            //     }
-            // }
+            if (LuaFileInfos == null)
+            {
+                Log.Error("ParseLuaFilesConfig Error!!!!!! LuaFileInfos is null!");
+            }
+            LuaFileInfos.Clear();
+            var contentLines = content.Split('\n');
+            var len = contentLines.Length;
+            for (var i = 0; i < len; i++)
+            {
+                if (string.IsNullOrEmpty(contentLines[i]))
+                {
+                    return;
+                }
+                var info = GameUtils.DeserializeObject<LuaFileInfo>(contentLines[i]);
+                if (info == null)
+                {
+                    Log.Error("invalid pase result!");
+                }
+                else
+                {
+                    LuaFileInfos.Add(info);
+                }
+            }
         }
 
         /// <summary>
@@ -141,49 +139,49 @@ namespace BB
         //         Log.Error("InitLuaEnv error! invalid luaenv");
         //     }
         // }
-        //
+        
         // public void InitLuaCommonScript()
-        // {
-            // if (_luaEnv == null)
-            // {
-            //     return;
-            // }
-            // RequireLuaFile(Constant.Lua.LuaCommonMainScript);
-            // _luaUpdater = gameObject.GetComponent<LuaUpdater>();
-            // if (_luaUpdater == null)
-            // {
-            //     _luaUpdater = gameObject.AddComponent<LuaUpdater>();
-            // }
-            // _luaUpdater.OnInit(_luaEnv);
-        // }
-        //
-        // public void StartRunLuaLogic()
         // {
         //     if (_luaEnv == null)
         //     {
         //         return;
         //     }
-        //     // RequireLuaFile(Constant.Lua.LuaGameMainScript);
-        //     SafeDoString("GameMain.Start()");
+        //     RequireLuaFile(Constant.Lua.LuaCommonMainScript);
+        //     _luaUpdater = gameObject.GetComponent<LuaUpdater>();
+        //     if (_luaUpdater == null)
+        //     {
+        //         _luaUpdater = gameObject.AddComponent<LuaUpdater>();
+        //     }
+        //     _luaUpdater.OnInit(_luaEnv);
         // }
+        
+        public void StartRunLuaLogic()
+        {
+            if (_luaEnv == null)
+            {
+                return;
+            }
+            // RequireLuaFile(Constant.Lua.LuaGameMainScript);
+            SafeDoString("GameMain.Start()");
+        }
 
         /// <summary>
         /// 加载lua文件
         /// </summary>
         /// <param name="assetName"></param>
         /// <param name="luaName"></param>
-        // public void LoadLuaFile(string luaName, string assetName)
-        // {
-            // var callBacks = new LoadAssetCallbacks(OnLoadLuaAssetSuccess, OnLoadLuaAssetFailure);
-            //
-            // if (CacheLuaDict.TryGetValue(luaName, out var strLuaValue))
-            // {
-            //     _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName, luaName, strLuaValue, 0));
-            //     return;
-            // }
-            //
-            // _resourceComponent.LoadAsset(assetName, callBacks, luaName);
-        // }
+        public void LoadLuaFile(string luaName, string assetName)
+        {
+            var callBacks = new LoadAssetCallbacks(OnLoadLuaAssetSuccess, OnLoadLuaAssetFailure);
+            
+            if (CacheLuaDict.TryGetValue(luaName, out var strLuaValue))
+            {
+                _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName, luaName, strLuaValue, 0));
+                return;
+            }
+            
+            _resourceComponent.LoadAsset(assetName, callBacks, luaName);
+        }
 
         /// <summary>
         /// 执行lua文件
@@ -332,7 +330,7 @@ namespace BB
             string content = textAsset.text;
             //开始解析Lua配置文件列表
             ParseLuaFilesConfig(content);
-            // _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFilesConfigSuccessEventArgs>().Fill(assetName, content));
+            _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFilesConfigSuccessEventArgs>().Fill(assetName, content));
 
             _resourceComponent.UnloadAsset(asset);
         }

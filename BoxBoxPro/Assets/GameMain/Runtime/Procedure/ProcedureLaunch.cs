@@ -1,4 +1,4 @@
-﻿
+﻿using GameFramework.Event;
 using GameFramework.Fsm;
 using GameFramework.Procedure;
 using UnityEngine;
@@ -16,7 +16,8 @@ namespace BB
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            Debug.Log("OnEnterHAHA");
+            GameEntry.Event.Subscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfgSuccess);
+            
             GameEntry.Lua.LoadLuaFilesConfig();
         }
 
@@ -28,6 +29,13 @@ namespace BB
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
+            
+            GameEntry.Event.Unsubscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfgSuccess);
+        }
+
+        private void OnLoadLuaFilesConfgSuccess(object sender, GameEventArgs e)
+        {
+            
         }
     }
 }
