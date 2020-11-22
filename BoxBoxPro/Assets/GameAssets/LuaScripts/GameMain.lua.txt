@@ -8,12 +8,12 @@ GameMain = {}
 local function Start()
 	print("GameMain start...")
 
-	LuaCSharpDataHelper:Startup()
+	--LuaCSharpDataHelper:Startup()
 	LuaFormManager:Startup()
 
 	-- 模块启动
-	UpdateManager:GetInstance():Startup()
-	TimerManager:GetInstance():Startup()
+	--UpdateManager:GetInstance():Startup()
+	--TimerManager:GetInstance():Startup()
 end
 
 local function OnApplicationQuit()

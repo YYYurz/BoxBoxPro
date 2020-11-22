@@ -123,37 +123,37 @@ namespace BB
         /// <summary>
         /// 初始化 Lua 环境第三方库接口
         /// </summary>
-        // public void InitLuaEnvExternalInterface()
-        // {
-        //     if (_luaEnv != null)
-        //     {
-        //         _luaEnv.AddLoader(CustomLoader);
+        public void InitLuaEnvExternalInterface()
+        {
+            if (_luaEnv != null)
+            {
+                _luaEnv.AddLoader(CustomLoader);
                 // _luaEnv.AddBuildin("rapidjson", XLua.LuaDLL.Lua.LoadRapidJson);
                 // _luaEnv.AddBuildin("lpeg", XLua.LuaDLL.Lua.LoadLpeg);
                 // _luaEnv.AddBuildin("pb", XLua.LuaDLL.Lua.LoadPb);
                 // _luaEnv.AddBuildin("protobuf.c", XLua.LuaDLL.Lua.LoadProtobufC);
-                // Log.Debug("InitLuaEnvExternalInterface success!!!");
-        //     }
-        //     else
-        //     {
-        //         Log.Error("InitLuaEnv error! invalid luaenv");
-        //     }
-        // }
+                Log.Debug("InitLuaEnvExternalInterface success!!!");
+            }
+            else
+            {
+                Log.Error("InitLuaEnv error! invalid luaenv");
+            }
+        }
         
-        // public void InitLuaCommonScript()
-        // {
-        //     if (_luaEnv == null)
-        //     {
-        //         return;
-        //     }
-        //     RequireLuaFile(Constant.Lua.LuaCommonMainScript);
-        //     _luaUpdater = gameObject.GetComponent<LuaUpdater>();
-        //     if (_luaUpdater == null)
-        //     {
-        //         _luaUpdater = gameObject.AddComponent<LuaUpdater>();
-        //     }
-        //     _luaUpdater.OnInit(_luaEnv);
-        // }
+        public void InitLuaCommonScript()
+        {
+            if (_luaEnv == null)
+            {
+                return;
+            }
+            // RequireLuaFile(Constant.Lua.LuaCommonMainScript);
+            // _luaUpdater = gameObject.GetComponent<LuaUpdater>();
+            // if (_luaUpdater == null)
+            // {
+            //     _luaUpdater = gameObject.AddComponent<LuaUpdater>();
+            // }
+            // _luaUpdater.OnInit(_luaEnv);
+        }
         
         public void StartRunLuaLogic()
         {
@@ -161,7 +161,7 @@ namespace BB
             {
                 return;
             }
-            // RequireLuaFile(Constant.Lua.LuaGameMainScript);
+            RequireLuaFile(Constant.Lua.LuaGameMainScript);
             SafeDoString("GameMain.Start()");
         }
 
@@ -324,7 +324,7 @@ namespace BB
 
         private void OnLoadLuaFilesConfigSuccess(string assetName, object asset, float duration, object userData)
         {
-            TextAsset textAsset = (TextAsset)asset;
+            var textAsset = (TextAsset)asset;
             Log.Info("Load LuaFilesConfig: '{0}' success.", assetName);
 
             string content = textAsset.text;
@@ -348,7 +348,7 @@ namespace BB
             TextAsset textAsset = (TextAsset)asset;
             CacheLuaDict.Add(luaName, textAsset.text);
 
-            //Log.Debug("Load lua '{0}' success. duration:{1}", luaName, duration);
+            // Debug.Log($"Load lua '{luaName}' success. duration:{duration}");
             // _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName, luaName, textAsset.text, duration));
         }
 
@@ -361,16 +361,15 @@ namespace BB
 
         public static byte[] CustomLoader(ref string filepath)
         {
-            //Log.Debug("LuaComponent CustomLoader Load:{0}", filepath);
-            // string scriptPath = string.Empty;
-            // string strLuaName = filepath.Replace(".", "/");
-            //
-            // string strLuaContent;
-            // if (GameEntry.Lua.CacheLuaDict.TryGetValue(strLuaName, out strLuaContent))
-            // {
-            //     return Utility.Converter.GetBytes(strLuaContent);
-            // }
-            //
+             string scriptPath = string.Empty;
+             string strLuaName = filepath.Replace(".", "/");
+            
+             string strLuaContent;
+             if (GameEntry.Lua.CacheLuaDict.TryGetValue(strLuaName, out strLuaContent))
+             {
+                 return Utility.Converter.GetBytes(strLuaContent);
+             }
+            
             return null;
         }
     }

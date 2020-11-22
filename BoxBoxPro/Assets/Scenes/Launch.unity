@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &1533502540 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2053117619886078676, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+  m_PrefabInstance: {fileID: 2053117619454933225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1782830936
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,10 +201,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2053117618353360583, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2053117619075679081, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
       propertyPath: m_InstanceCapacity
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075679081, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_InstanceRoot
+      value: 
+      objectReference: {fileID: 1533502540}
     - target: {fileID: 2053117619085661465, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -248,6 +261,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameFramework
       objectReference: {fileID: 0}
+    - target: {fileID: 2053117619085919347, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2053117619886078676, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -291,6 +308,10 @@ PrefabInstance:
     - target: {fileID: 2053117619886078676, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619886078677, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2053117619886078679, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
       propertyPath: m_Enabled

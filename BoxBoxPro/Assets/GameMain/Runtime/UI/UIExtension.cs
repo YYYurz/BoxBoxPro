@@ -36,6 +36,7 @@ namespace BB
         public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
         {
             DTUIFormData? uiFormDataTable = GameEntry.GameData.DataTableInfo.GetDataTableReader<DTUIFormDataTableReader>().GetInfo((uint)uiFormId);
+            Debug.Log("yzr");
             if (uiFormDataTable == null)
             {
                 Log.Error("LuaForm Open Error! invalid UIDataTable!!! FormID : {0}", uiFormId);
@@ -57,6 +58,13 @@ namespace BB
             
             UIFormOpenDataInfo uiFormOpenDataInfo = UIFormOpenDataInfo.Create(uiFormId, uiFormDataTable.Value.LuaFile, userData);
             return uiComponent.OpenUIForm(strAssetPath, uiFormDataTable.Value.UIGroupName, Constant.AssetPriority.UIFormAsset, (uiFormDataTable.Value.PauseCoveredUIForm == 1), uiFormOpenDataInfo);
+        }
+
+        public static int? OpenUIFormm(this UIComponent uiComponent)
+        {
+            Debug.Log("yzr");
+            UIFormOpenDataInfo uiFormOpenDataInfo = UIFormOpenDataInfo.Create(111, "UIForm/StartWindow/StartWindow", null);
+            return uiComponent.OpenUIForm("Assets/GameAssets/UI/StartWindow.prefab", "Normal", Constant.AssetPriority.UIFormAsset, false, uiFormOpenDataInfo);
         }
 
         // public static int? ShowUITips(this UIComponent uiComponent, string strTips)

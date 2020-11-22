@@ -52,12 +52,19 @@ namespace BB
             private set;
         }
 
+        public static PreloadComponent AssetPreload
+        {
+            get;
+            private set;
+        }
+
         private static void InitCustomComponents()
         {
             GameData = UnityGameFramework.Runtime.GameEntry.GetComponent<GameDataComponent>();
             // Timer = UnityGameFramework.Runtime.GameEntry.GetComponent<TimerComponent>();
             // GameLogic = UnityGameFramework.Runtime.GameEntry.GetComponent<GameLogicComponent>();
             Lua = UnityGameFramework.Runtime.GameEntry.GetComponent<LuaComponent>();
+            AssetPreload = UnityGameFramework.Runtime.GameEntry.GetComponent<PreloadComponent>();
         }
     }
 }
