@@ -36,7 +36,7 @@ namespace BB
                     GameEntry.Lua.InitLuaCommonScript();
                     GameEntry.Lua.StartRunLuaLogic();
                     _allAssetLoadedComplete = false;
-                    GameEntry.UI.OpenUIFormm();
+                    GameEntry.UI.OpenUIForm(Constant.UIFormID.StartWindow);
                     Debug.Log("打开StartWindow成功！！！");
                 }
             }
@@ -59,6 +59,12 @@ namespace BB
             assetLuaFileInfo.SetLuaFileInfo(GameEntry.Lua.LuaFileInfos);
             GameEntry.AssetPreload.AddAssetPreloadList(assetLuaFileInfo);
             
+            PreloadDataTableList assetDataTableInfo = new PreloadDataTableList();
+            assetDataTableInfo.AddOneAssetInfo(typeof(DTGameConfigTableReader));
+            assetDataTableInfo.AddOneAssetInfo(typeof(DTUIFormDataTableReader));
+            assetDataTableInfo.AddOneAssetInfo(typeof(DTSoundDataTableReader)); //加载音乐配置
+            GameEntry.AssetPreload.AddAssetPreloadList(assetDataTableInfo);
+
             GameEntry.AssetPreload.StartPreloadAsset();
         }
 

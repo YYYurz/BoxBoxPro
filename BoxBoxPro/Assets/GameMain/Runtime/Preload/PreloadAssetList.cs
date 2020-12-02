@@ -32,20 +32,20 @@ namespace BB
         }
     }
 
-    // public class PreloadDataTableList : PreloadAssetList
-    // {
-    //     public void AddOneAssetInfo(Type type)
-    //     {
-    //         ITableReader tableReader = (ITableReader)Activator.CreateInstance(type);
-    //         var preAssetInfo = new PreloadAssetInfo(tableReader.TablePath
-    //             , 0
-    //             , GameEnumType.GAMEASSET_TYPE.PAT_SCRIPTABLE
-    //             , type
-    //             , new ParseConfigDataInfo(type.Name, type, tableReader, GameEnumType.GAMEASSET_TYPE.PAT_DATATABLE));
-    //
-    //         mLisAssetInfo.Add(preAssetInfo);
-    //     }
-    // }
+    public class PreloadDataTableList : PreloadAssetList
+    {
+        public void AddOneAssetInfo(Type type)
+        {
+            ITableReader tableReader = (ITableReader)Activator.CreateInstance(type);
+            var preAssetInfo = new PreloadAssetInfo(tableReader.TablePath
+                , 0
+                , GameEnumType.GAMEASSET_TYPE.PAT_SCRIPTABLE
+                , type
+                , new ParseConfigDataInfo(type.Name, type, tableReader, GameEnumType.GAMEASSET_TYPE.PAT_DATATABLE));
+    
+            mLisAssetInfo.Add(preAssetInfo);
+        }
+    }
 
     public class PreloadUIFormList : PreloadAssetList
     {

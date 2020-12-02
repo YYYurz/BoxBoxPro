@@ -10,14 +10,14 @@ namespace BB
 
         public object UserData { get; private set; }
 
-        // public GameEnumType.GAMEASSET_TYPE DataType { get; private set; }
+        public GameEnumType.GAMEASSET_TYPE DataType { get; private set; }
 
-        public ParseConfigDataInfo(string configName, Type type, object userData/*, GameEnumType.GAMEASSET_TYPE dataType*/)
+        public ParseConfigDataInfo(string configName, Type type, object userData, GameEnumType.GAMEASSET_TYPE dataType)
         {
             ConfigName = configName;
             ConfigClassType = type;
             UserData = userData;
-            // DataType = dataType;
+            DataType = dataType;
         }
 
         /// <summary>

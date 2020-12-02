@@ -36,7 +36,6 @@ namespace BB
         public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
         {
             DTUIFormData? uiFormDataTable = GameEntry.GameData.DataTableInfo.GetDataTableReader<DTUIFormDataTableReader>().GetInfo((uint)uiFormId);
-            Debug.Log("yzr");
             if (uiFormDataTable == null)
             {
                 Log.Error("LuaForm Open Error! invalid UIDataTable!!! FormID : {0}", uiFormId);
