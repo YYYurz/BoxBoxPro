@@ -349,28 +349,27 @@ namespace BB
             CacheLuaDict.Add(luaName, textAsset.text);
 
             // Debug.Log($"Load lua '{luaName}' success. duration:{duration}");
-            // _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName, luaName, textAsset.text, duration));
+            _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName, luaName, textAsset.text, duration));
         }
 
         private void OnLoadLuaAssetFailure(string assetName, string dependencyAssetName, int loadedCount, int totalCount, object userData)
         {
-            string luaName = (string)userData;
-            string errorMessage = string.Format("Load lua file failed. The file is {0}. ", assetName);
-            // _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFailureEventArgs>().Fill(assetName, luaName, errorMessage));
+            var luaName = (string)userData;
+            var errorMessage = string.Format("Load lua file failed. The file is {0}. ", assetName);
+            _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFailureEventArgs>().Fill(assetName, luaName, errorMessage));
         }
 
-        public static byte[] CustomLoader(ref string filepath)
+        private static byte[] CustomLoader(ref string filepath)
         {
-             string scriptPath = string.Empty;
-             string strLuaName = filepath.Replace(".", "/");
+             var scriptPath = string.Empty;
+             var strLuaName = filepath.Replace(".", "/");
             
              string strLuaContent;
              if (GameEntry.Lua.CacheLuaDict.TryGetValue(strLuaName, out strLuaContent))
              {
                  return Utility.Converter.GetBytes(strLuaContent);
              }
-            
-            return null;
+             return null;
         }
     }
 }

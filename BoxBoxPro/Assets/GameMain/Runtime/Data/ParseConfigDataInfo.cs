@@ -20,9 +20,6 @@ namespace BB
             DataType = dataType;
         }
 
-        /// <summary>
-        /// todo
-        /// </summary>
         public void Clear()
         {
             ConfigName = null;

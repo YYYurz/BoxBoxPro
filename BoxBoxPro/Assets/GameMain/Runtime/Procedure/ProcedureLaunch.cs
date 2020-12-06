@@ -16,30 +16,24 @@ namespace BB
         {
             base.OnEnter(procedureOwner);
             GameEntry.Event.Subscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
+            GameEntry.Event.Subscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
             GameEntry.Event.Subscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFormFailure);
             _allAssetLoadedComplete = false;
-            
             
             GameEntry.Lua.LoadLuaFilesConfig();
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
-            base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            a += elapseSeconds;
-            if (_allAssetLoadedComplete)
+            if (!_allAssetLoadedComplete)
             {
-                if (a > 5)
-                {
-                    GameEntry.Lua.InitLuaEnvExternalInterface();
-                    GameEntry.Lua.InitLuaCommonScript();
-                    GameEntry.Lua.StartRunLuaLogic();
-                    _allAssetLoadedComplete = false;
-                    GameEntry.UI.OpenUIForm(Constant.UIFormID.StartWindow);
-                    Debug.Log("打开StartWindow成功！！！");
-                }
+                return;
             }
+
+            _allAssetLoadedComplete = false;
+            GameEntry.UI.OpenUIForm(Constant.UIFormID.StartWindow);
+            Debug.Log("打开StartWindow成功！！！");
         }
 
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
@@ -47,6 +41,7 @@ namespace BB
             base.OnLeave(procedureOwner, isShutdown);
             
             GameEntry.Event.Unsubscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
+            GameEntry.Event.Unsubscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
             GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
             GameEntry.Event.Unsubscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFormFailure);
         }
@@ -54,7 +49,6 @@ namespace BB
         private void OnLoadLuaFilesConfigSuccess(object sender, GameEventArgs e)
         {
             Debug.Log("OnLoadLuaFilesConfigSuccess");
-            _allAssetLoadedComplete = true;
             PreloadLuaFileList assetLuaFileInfo = new PreloadLuaFileList();
             assetLuaFileInfo.SetLuaFileInfo(GameEntry.Lua.LuaFileInfos);
             GameEntry.AssetPreload.AddAssetPreloadList(assetLuaFileInfo);
@@ -66,6 +60,15 @@ namespace BB
             GameEntry.AssetPreload.AddAssetPreloadList(assetDataTableInfo);
 
             GameEntry.AssetPreload.StartPreloadAsset();
+        }
+        
+        private void OnAllAssetsLoadedComplete(object sender, GameEventArgs e)
+        {
+            Log.Debug("OnAllAssetsLoadedComplete");
+            GameEntry.Lua.InitLuaEnvExternalInterface();
+            GameEntry.Lua.InitLuaCommonScript();
+            GameEntry.Lua.StartRunLuaLogic();
+            _allAssetLoadedComplete = true;
         }
 
         private void OnOpenUIFormSuccess(object sender, GameEventArgs e)

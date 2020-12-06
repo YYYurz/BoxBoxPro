@@ -104,10 +104,10 @@ namespace BB
                     case GameEnumType.GAMEASSET_TYPE.PAT_LUAFILE:
                         GameEntry.Lua.LoadLuaFile((string)iteAssetInfo.Value.UserData, iteAssetInfo.Value.AssetPath);
                         break;
-                    // case GameEnumType.GAMEASSET_TYPE.PAT_SCRIPTABLE:
-                    // case GameEnumType.GAMEASSET_TYPE.PAT_DATATABLE:
-                    //     GameEntry.GameData.LoadCustomData(iteAssetInfo.Value.AssetPath, iteAssetInfo.Value.UserData);
-                    //     break;
+                    case GameEnumType.GAMEASSET_TYPE.PAT_SCRIPTABLE:
+                    case GameEnumType.GAMEASSET_TYPE.PAT_DATATABLE:
+                        GameEntry.GameData.LoadCustomData(iteAssetInfo.Value.AssetPath, iteAssetInfo.Value.UserData);
+                        break;
                     // case GameEnumType.GAMEASSET_TYPE.PAT_CONFIGTXT:
                     //     {
                     //         Tuple<string, LoadType> tupUserData = iteAssetInfo.Value.UserData as Tuple<string, LoadType>;
@@ -141,7 +141,7 @@ namespace BB
             GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
             GameEntry.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
             GameEntry.Event.Subscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
-            // GameEntry.Event.Subscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
+            GameEntry.Event.Subscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnLoadUIFormSuccess);
 
         }
@@ -151,7 +151,7 @@ namespace BB
             GameEntry.Event.Unsubscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
             GameEntry.Event.Unsubscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
             GameEntry.Event.Unsubscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
-            // GameEntry.Event.Unsubscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
+            GameEntry.Event.Unsubscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
             GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnLoadUIFormSuccess);
         }
 
@@ -169,8 +169,7 @@ namespace BB
 
         private bool CheckNormalAssetLoaded(string strAssetName)
         {
-            PreloadAssetInfo preAssetInfo = null;
-            if (mDicLoadingAssetInfo.TryGetValue(strAssetName, out preAssetInfo))
+            if (mDicLoadingAssetInfo.TryGetValue(strAssetName, out var preAssetInfo))
             {
                 preAssetInfo.AssetPreloadStatus = GameEnumType.PRELOADASSET_STATUS.PS_LOADED;
             }
@@ -228,15 +227,15 @@ namespace BB
             }
         }
 
-        // private void OnLoadCustomDataSuccess(object sender, GameEventArgs e)
-        // {
-        //     LoadCustomDataSuccessEventArgs args = e as LoadCustomDataSuccessEventArgs;
-        //     //Log.Debug("PreloadComponent OnLoadConfigSuccess! DataTable:{0} duration:{1}", args.DataName, args.Duration);
-        //     if (CheckNormalAssetLoaded(args.DataName))
-        //     {
-        //         OneAssetLoadSuccess(args.DataName);
-        //     }
-        // }
+        private void OnLoadCustomDataSuccess(object sender, GameEventArgs e)
+        {
+            LoadCustomDataSuccessEventArgs args = e as LoadCustomDataSuccessEventArgs;
+            Log.Debug("PreloadComponent OnLoadConfigSuccess! DataTable:{0} duration:{1}", args.DataName, args.Duration);
+            if (CheckNormalAssetLoaded(args.DataName))
+            {
+                OneAssetLoadSuccess(args.DataName);
+            }
+        }
 
         private void OnLoadUIFormSuccess(object sender, GameEventArgs e)
         {

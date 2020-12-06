@@ -23,7 +23,7 @@ namespace BB
             ITableReader tableReader = parseConfigDataInfo.UserData as ITableReader;
             tableReader.LoadDataFile(textAsset.bytes);
             mDicDataTableReaders[parseConfigDataInfo.ConfigClassType] = tableReader;
-            Log.Debug("DataTableAssets::ParseTacksData Success! Type[{0}]", parseConfigDataInfo.ConfigClassType.Name);
+            Log.Debug("DataTableAssets: ParseData Success! Type[{0}]", parseConfigDataInfo.ConfigClassType.Name);
         }
 
         public T GetDataTableReader<T>()

@@ -16,7 +16,7 @@ public abstract class TableReader<TData, TDataList, TDataReader> : ITableReader
     public static TDataReader Instance
     {
         get
-        {
+        { 
             if (_gInstance != null) {
                 return _gInstance;
             }
