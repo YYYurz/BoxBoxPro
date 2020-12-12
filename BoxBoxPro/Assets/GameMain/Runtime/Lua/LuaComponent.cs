@@ -211,6 +211,7 @@ namespace BB
             {
                 try
                 {
+                    Log.Debug(scriptContent + "SafeDoString");
                     _luaEnv.DoString(scriptContent);
                 }
                 catch (System.Exception ex)

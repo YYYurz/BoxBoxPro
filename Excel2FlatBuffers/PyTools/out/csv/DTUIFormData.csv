@@ -6,7 +6,7 @@ int,string,string,int,int,string,string
 "5","UIReconnectForm","PopUp","0","0","Common/Prefabs/UICommon/UIReconnectForm","UIForm/UICommon/UIReconnectForm"
 "52","UILoginMainForm","Normal","0","1","Login/Prefabs/UILogin/UILoginMainForm","UIForm/UILogin/UILoginMainForm"
 "104","UILobbyForm","Normal","0","1","Lobby/Prefabs/UILobby/UILobbyForm","UIForm/UILobby/UILobbyForm"
-"111","StartWindow","Normal","0","1","StartWindow",""
+"111","StartWindow","Normal","0","1","StartWindow","UIForm/StartWindow/StartWindow"
 "","","","","","",""
 "","","","","","",""
 "","","","","","",""
