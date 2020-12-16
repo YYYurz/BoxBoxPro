@@ -1,24 +1,21 @@
-﻿local UILobbyForm = BaseClass("StartWindow", UIFormBase)
-LuaFormManager.formClassDict["StartWindow"] = UILobbyForm
-local base = UIFormBase
+﻿local UIBase = require "UIForm/UIBase"
+local StartWindow = UIBase:New()
 
-local function OnCreate(self, transform, objs)
-	base.OnCreate(self, transform, objs)
+LuaFormManager.formClassDict["StartWindow"] = StartWindow
+
+function StartWindow:OnCreate(transform, objs)
+	UIBase.OnCreate(self, transform, objs)
 	print("OnCreate")
 end
 
-local function OnOpen(self, serializeID, objs)
-	base.OnOpen(self, serializeID, objs)
+function StartWindow:OnOpen(serializeID, objs)
+	UIBase.OnOpen(self, serializeID, objs)
 	print("OnOpen")
 end
 
-local function OnClose(self)
-	base.OnClose(self)
+function StartWindow: OnClose()
+	UIBase.OnClose(self)
 	print("OnClose")
 end
-
-UILobbyForm.OnCreate = OnCreate
-UILobbyForm.OnOpen = OnOpen
-UILobbyForm.OnClose = OnClose
 
 return StartWindow

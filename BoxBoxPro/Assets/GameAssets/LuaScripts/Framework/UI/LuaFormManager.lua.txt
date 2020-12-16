@@ -34,10 +34,10 @@ function LuaFormManager.Open(formName, transform, serializeID, objs)
 
 	for className, formClass in pairs(self.formClassDict) do
 		if className == formName then
-			local form = formClass.New(objs)
-			form:OnCreate(transform, objs)
-			self.formInstanceDict[className] = form
-			form:OnOpen(serializeID, objs)
+			--local form = formClass.New(objs)
+			formClass:OnCreate(transform, objs)
+			self.formInstanceDict[className] = formClass
+			formClass:OnOpen(serializeID, objs)
 			return
 		end
 	end

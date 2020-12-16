@@ -1,5 +1,5 @@
 {"luaName":"Data/BBConstantUIFormID","assetName":"Assets/GameAssets/LuaScripts/Data/BBConstantUIFormID.lua.txt"}
-{"luaName":"Framework/Common/BaseClass","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/BaseClass.lua.txt"}
+{"luaName":"Framework/Common/LuaBehaviour","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/LuaBehaviour.lua.txt"}
 {"luaName":"Framework/Common/Messenger","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/Messenger.lua.txt"}
 {"luaName":"Framework/Common/Singleton","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/Singleton.lua.txt"}
 {"luaName":"Framework/Common/Updatable","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/Updatable.lua.txt"}
@@ -39,5 +39,5 @@
 {"luaName":"GameConfig/FP","assetName":"Assets/GameAssets/LuaScripts/GameConfig/FP.lua.txt"}
 {"luaName":"Global/Global","assetName":"Assets/GameAssets/LuaScripts/Global/Global.lua.txt"}
 {"luaName":"UIForm/StartWindow/StartWindow","assetName":"Assets/GameAssets/LuaScripts/UIForm/StartWindow/StartWindow.lua.txt"}
-{"luaName":"UIForm/UIFormBase","assetName":"Assets/GameAssets/LuaScripts/UIForm/UIFormBase.lua.txt"}
+{"luaName":"UIForm/UIBase","assetName":"Assets/GameAssets/LuaScripts/UIForm/UIBase.lua.txt"}
 {"luaName":"GameMain","assetName":"Assets/GameAssets/LuaScripts/GameMain.lua.txt"}

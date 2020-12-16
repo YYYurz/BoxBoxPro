@@ -15,7 +15,7 @@ local function Start()
 	--UpdateManager:GetInstance():Startup()
 	--TimerManager:GetInstance():Startup()
 end
-
+ 
 local function OnApplicationQuit()
 	-- 模块注销
 	UpdateManager:GetInstance():Dispose()

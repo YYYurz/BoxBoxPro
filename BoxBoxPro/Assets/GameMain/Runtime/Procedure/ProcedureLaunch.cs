@@ -2,6 +2,7 @@
 using GameFramework.Fsm;
 using GameFramework.Procedure;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
 namespace BB
@@ -22,6 +23,12 @@ namespace BB
             _allAssetLoadedComplete = false;
             
             GameEntry.Lua.LoadLuaFilesConfig();
+
+
+            var uiRoot = GameObject.Find("UI Form Instances");
+            var scaler = uiRoot.GetComponent<CanvasScaler>();
+            var factor = scaler.scaleFactor;
+            Debug.Log("UIFactor = " + factor);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)

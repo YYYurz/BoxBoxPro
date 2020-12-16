@@ -10,7 +10,7 @@
 -- 4、这里的全局模块是相对与游戏框架或者逻辑而言，lua语言层次的全局模块放Common.Main中导出
 --]]
 -- 加载全局模块
-require "Framework.Common.BaseClass"
+require "Framework.Common.LuaBehaviour"
 
 --LuaList = require "Common.LuaList"
 --LuaQueue = require "Common.LuaQueue"
@@ -30,7 +30,7 @@ require "Framework.Common.BaseClass"
 --LuaCSharpDataHelper = require "Framework.LuaCSharpData.LuaCSharpDataHelper"
 
 -- ui window
-UIFormBase = require "UIForm.UIFormBase"
+UIBase = require "UIForm.UIBase"
 LuaFormManager = require "Framework.UI.LuaFormManager"
 
 -- word check

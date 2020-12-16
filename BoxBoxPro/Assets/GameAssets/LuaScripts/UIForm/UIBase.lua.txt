@@ -1,0 +1,65 @@
+local LuaBehaviour = require "Framework/Common/LuaBehaviour"
+local LuaCall = CS.Hr.LuaCallStatic
+
+local UIBase = {}
+
+function UIBase:OnCreate(transform, objs)
+	self.transform = transform
+	self.arrUnityEventBase = {}
+	self.tableEventListener = {}
+	self.tableLoadAsset = {}
+end
+
+ function UIBase:OnOpen(serializeID, objs)
+	self.serializeID = serializeID
+end
+
+ function UIBase:OnEnable()
+end
+
+ function UIBase:OnDestroy()
+	for k, _v in pairs(self.arrUnityEventBase) do
+		k:RemoveAllListeners()
+		k:Invoke()
+	end
+
+	self.arrUnityEventBase = {}
+end
+
+ function UIBase:OnClose()
+	for k, v in pairs(self.tableEventListener) do
+		LuaCall.RemoveEvent(k, v)
+	end
+
+	self.tableEventListener = {}
+
+	for k,v in pairs(self.tableLoadAsset) do
+		LuaCall.UnloadAsset(v)
+	end
+	self.tableLoadAsset = {}
+end
+
+ function UIBase:AddListener(unityEventBase, func)
+	unityEventBase.AddListener(unityEventBase, func)
+	self.arrUnityEventBase[unityEventBase] = 1
+end
+
+ function UIBase:AddEventListener(nEventID, func)
+	if self.tableEventListener[nEventID] == nil then
+		LuaCall.AddEvent(nEventID, func)
+		self.tableEventListener[nEventID] = func
+	else
+		Logger.LogError("这个ID已经注册过监听事件了 " .. nEventID)
+	end
+end
+
+function UIBase:AddLoadAsset(nAsset)
+	table.insert( self.tableLoadAsset, nAsset )
+end
+
+function UIBase:LuaCall()
+	LuaCall()
+end
+
+LuaBehaviour:New(UIBase)
+return UIBase

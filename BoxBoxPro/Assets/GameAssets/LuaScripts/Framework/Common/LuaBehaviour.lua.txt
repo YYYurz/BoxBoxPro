@@ -1,0 +1,20 @@
+local LuaBehaviour = {}
+
+--function LuaBehaviour:New(target)
+--	target = target or {}
+--	self.__index = self
+--	setmetatable(target, self)
+--	return target
+--end
+function LuaBehaviour:New(o)
+	return self:ctor(o or {})
+end
+
+function LuaBehaviour:ctor(target)
+	local meta = {}
+	return setmetatable(target, {__index = setmetatable(meta, {__index = self}),
+		__newindex = meta})
+end
+
+
+return LuaBehaviour
