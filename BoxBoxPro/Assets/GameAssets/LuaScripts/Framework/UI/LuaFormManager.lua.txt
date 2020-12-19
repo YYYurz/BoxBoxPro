@@ -17,7 +17,7 @@ end
 function LuaFormManager.Open(formName, transform, serializeID, objs)
 	local self = this
 	--先看是否存在实例对象
-	for className, formIndstance in pairs(self.formInstanceDict) do
+	for className, formInstance in pairs(self.formInstanceDict) do
 		if className == formName then
 			local form = self.formInstanceDict[className]
 
@@ -50,18 +50,6 @@ function LuaFormManager.OnOpenComplete(formName)
 		if className == formName then
 			if self.formInstanceDict[className].OnOpenComplete then
 				self.formInstanceDict[className]:OnOpenComplete()
-			end
-		end
-	end
-end
-
--- 更新
-function LuaFormManager.OnUpdate(formName, elapseSeconds, realElapseSeconds)
-	local self = this
-	for className, form in pairs(self.formInstanceDict) do
-		if className == formName then
-			if self.formInstanceDict[className].OnUpdate then
-				self.formInstanceDict[className]:OnUpdate(elapseSeconds, realElapseSeconds)
 			end
 		end
 	end

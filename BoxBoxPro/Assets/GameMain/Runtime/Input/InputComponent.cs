@@ -8,16 +8,13 @@ namespace BB
 {
     public class InputComponent : GameFrameworkComponent
     {
-        // Start is called before the first frame update
-        void Start()
+        /// <summary>
+        /// 摇杆输入
+        /// </summary>
+        /// <returns> 返回的偏移量 </returns>
+        public Vector2 OnJoyStick()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            
         }
     }
 }

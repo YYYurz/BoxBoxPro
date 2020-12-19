@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------
-// Copyright © 2017-2020 Chen Hua. All rights reserved.
-// Author: 一条猪儿虫
-// Email: 1184923569@qq.com
-//------------------------------------------------------------
-
-// using GameConfig;
-using UnityGameFramework.Runtime;
+﻿using UnityGameFramework.Runtime;
 using XLua;
 
 /// <summary>
@@ -62,16 +55,6 @@ namespace BB
 
 
         }
-
-        //protected internal override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-        //{
-        //    base.OnUpdate(elapseSeconds, realElapseSeconds);
-
-        //    if (m_FormManagerLuaTable != null)
-        //    {
-        //        GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnUpdate",m_FormName, elapseSeconds, realElapseSeconds);
-        //    }
-        //}
 
         protected override void OnClose(bool isShutdown, object userData)
         {

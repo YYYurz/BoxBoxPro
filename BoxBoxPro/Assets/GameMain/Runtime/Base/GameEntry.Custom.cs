@@ -58,6 +58,12 @@ namespace BB
             private set;
         }
 
+        public static InputComponent InputComponent
+        {
+            get;
+            private set;
+        }
+
         private static void InitCustomComponents()
         {
             GameData = UnityGameFramework.Runtime.GameEntry.GetComponent<GameDataComponent>();
@@ -65,6 +71,7 @@ namespace BB
             // GameLogic = UnityGameFramework.Runtime.GameEntry.GetComponent<GameLogicComponent>();
             Lua = UnityGameFramework.Runtime.GameEntry.GetComponent<LuaComponent>();
             AssetPreload = UnityGameFramework.Runtime.GameEntry.GetComponent<PreloadComponent>();
+            InputComponent = UnityGameFramework.Runtime.GameEntry.GetComponent<InputComponent>();
         }
     }
 }
