@@ -12,9 +12,9 @@ namespace BB
         /// 摇杆输入
         /// </summary>
         /// <returns> 返回的偏移量 </returns>
-        public Vector2 OnJoyStick()
-        {
-            
-        }
+        // public Vector2 OnJoyStick()
+        // {
+        //     
+        // }
     }
 }

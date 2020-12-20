@@ -101,32 +101,32 @@ namespace BB
             {
                 switch (iteAssetInfo.Value.AssetPreloadType)
                 {
-                    case GameEnumType.GAMEASSET_TYPE.PAT_LUAFILE:
+                    case GameEnum.GAME_ASSET_TYPE.LuaFile:
                         GameEntry.Lua.LoadLuaFile((string)iteAssetInfo.Value.UserData, iteAssetInfo.Value.AssetPath);
                         break;
-                    case GameEnumType.GAMEASSET_TYPE.PAT_SCRIPTABLE:
-                    case GameEnumType.GAMEASSET_TYPE.PAT_DATATABLE:
+                    case GameEnum.GAME_ASSET_TYPE.Scriptable:
+                    case GameEnum.GAME_ASSET_TYPE.DataTable:
                         GameEntry.GameData.LoadCustomData(iteAssetInfo.Value.AssetPath, iteAssetInfo.Value.UserData);
                         break;
-                    // case GameEnumType.GAMEASSET_TYPE.PAT_CONFIGTXT:
+                    // case GameEnum.GAMEASSET_TYPE.PAT_CONFIGTXT:
                     //     {
                     //         Tuple<string, LoadType> tupUserData = iteAssetInfo.Value.UserData as Tuple<string, LoadType>;
                     //         GameEntry.Config.LoadConfig(tupUserData.Item1, iteAssetInfo.Value.AssetPath, tupUserData.Item2);
                     //     }
                     //     break;
-                    // case GameEnumType.GAMEASSET_TYPE.PAT_LOCALIZATION:
+                    // case GameEnum.GAMEASSET_TYPE.PAT_LOCALIZATION:
                     //     {
                     //         Tuple<string, LoadType> tupUserData = iteAssetInfo.Value.UserData as Tuple<string, LoadType>;
                     //         GameEntry.Localization.LoadDictionary(tupUserData.Item1, iteAssetInfo.Value.AssetPath, tupUserData.Item2);
                     //     }
                     //     break;
-                    // case GameEnumType.GAMEASSET_TYPE.PAT_UIFORM:
+                    // case GameEnum.GAMEASSET_TYPE.PAT_UIFORM:
                     //     {
                     //         int nSerialID = (int)GameEntry.UI.OpenUIForm(iteAssetInfo.Value.UIFormID, iteAssetInfo.Value.UserData);
                     //         mDicUIAssetInfoSerialID[nSerialID] = iteAssetInfo.Value;
                     //     }
                     //     break;
-                    // case GameEnumType.GAMEASSET_TYPE.PAT_PREFAB:
+                    // case GameEnum.GAMEASSET_TYPE.PAT_PREFAB:
                     //     {
                     //         LoadAssetCallbacks callbacks = new LoadAssetCallbacks(OnPreLoadPrefabSuccess, OnPreLoadPrefabFailed);
                     //         GameEntry.Resource.LoadAsset(iteAssetInfo.Value.AssetPath, callbacks);
@@ -171,7 +171,7 @@ namespace BB
         {
             if (mDicLoadingAssetInfo.TryGetValue(strAssetName, out var preAssetInfo))
             {
-                preAssetInfo.AssetPreloadStatus = GameEnumType.PRELOADASSET_STATUS.PS_LOADED;
+                preAssetInfo.AssetPreloadStatus = GameEnum.PRELOAD_ASSET_STATUS.Loaded;
             }
             else
             {
@@ -187,7 +187,7 @@ namespace BB
             PreloadAssetInfo preAssetInfo;
             if (mDicUiAssetInfoSerialId.TryGetValue(nSerial, out preAssetInfo))
             {
-                preAssetInfo.AssetPreloadStatus = GameEnumType.PRELOADASSET_STATUS.PS_LOADED;
+                preAssetInfo.AssetPreloadStatus = GameEnum.PRELOAD_ASSET_STATUS.Loaded;
             }
             else
             {
@@ -280,7 +280,7 @@ namespace BB
             IEnumerator<PreloadAssetInfo> iter = mDicLoadingAssetInfo.Values.GetEnumerator();
             while (iter.MoveNext())
             {
-                if (iter.Current.AssetPreloadStatus != GameEnumType.PRELOADASSET_STATUS.PS_LOADED)
+                if (iter.Current.AssetPreloadStatus != GameEnum.PRELOAD_ASSET_STATUS.Loaded)
                 {
                     return false;
                 }

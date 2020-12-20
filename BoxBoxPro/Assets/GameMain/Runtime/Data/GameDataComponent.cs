@@ -48,7 +48,7 @@ namespace BB
             }
             switch (parseConfigInfo.DataType)
             {
-                case GameEnumType.GAMEASSET_TYPE.PAT_DATATABLE:
+                case GameEnum.GAME_ASSET_TYPE.DataTable:
                     DataTableInfo.ParseDataTable(asset, parseConfigInfo);
                     break;
                 default:

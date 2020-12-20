@@ -213,13 +213,13 @@
 //         #region 新手引导
 //         public static bool IsDoNoviceGuide(int nStepIndex)
 //         {
-//             GameEnumType.NOVICE_GUIDE_STEPS step = (GameEnumType.NOVICE_GUIDE_STEPS)nStepIndex;
+//             GameEnum.NOVICE_GUIDE_STEPS step = (GameEnum.NOVICE_GUIDE_STEPS)nStepIndex;
 //             return NoviceGuideManager.Instance.IsDoNoviceGuide(step);
 //         }
 //
 //         public static void SetDoNoviceGuide(int nStepIndex)
 //         {
-//             GameEnumType.NOVICE_GUIDE_STEPS step = (GameEnumType.NOVICE_GUIDE_STEPS)nStepIndex;
+//             GameEnum.NOVICE_GUIDE_STEPS step = (GameEnum.NOVICE_GUIDE_STEPS)nStepIndex;
 //             NoviceGuideManager.Instance.SetDoNoviceGuide(step);
 //         }
 //

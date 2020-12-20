@@ -23,6 +23,27 @@ public class DTGameConfigTableReader : TableReader<DTGameConfig, DTGameConfigLis
     }
 }
 
+public class DTSceneTableReader : TableReader<DTScene, DTSceneList, DTSceneTableReader>
+{
+    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTScene.bytes";   
+    protected override DTScene? GetData(DTSceneList dataList, int i)
+    {
+        return dataList.Data(i);
+    }
+    protected override int GetDataLength(DTSceneList dataList)
+    {
+        return dataList.DataLength;
+    }
+    protected override uint GetKey(DTScene data)
+    {
+        return data.Id;
+    }
+    protected override DTSceneList GetTableDataList(ByteBuffer byteBuffer)
+    {
+        return DTSceneList.GetRootAsDTSceneList(byteBuffer);
+    }
+}
+
 public class DTSoundDataTableReader : TableReader<DTSoundData, DTSoundDataList, DTSoundDataTableReader>
 {
     public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTSoundData.bytes";   

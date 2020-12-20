@@ -1,1 +1,4 @@
+DTGameConfig
+DTScene
+DTSoundData
 DTUIFormData

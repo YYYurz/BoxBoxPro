@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEditor;
 using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 namespace BB.Editor
 {
@@ -54,11 +56,6 @@ namespace BB.Editor
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUILayout.LabelField("勾选Excel文件：", GUILayout.Width(120));
-                if (GUILayout.Button("SVN Update", GUILayout.Width(100)))
-                {
-                    SVNUpdate();
-                }
-
                 if (GUILayout.Button("打开当前目录", GUILayout.Width(150)))
                 {
                     OpenDirectory(SelectFolderPath);
@@ -85,7 +82,7 @@ namespace BB.Editor
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(500f), GUILayout.Height(385f));
             {
                 EditorGUILayout.BeginVertical("box", GUILayout.Width(500f), GUILayout.Height(440f));
-                if (Directory.Exists(SelectFolderPath.ToString()))
+                if (Directory.Exists(SelectFolderPath))
                 {
                     DirectoryInfo folder = new DirectoryInfo(SelectFolderPath);
                     var files = folder.GetFiles("DT*.xlsx");
@@ -135,16 +132,6 @@ namespace BB.Editor
             }
 
             System.Diagnostics.Process.Start("explorer.exe", path);
-        }
-
-        // SVN Update当前目录
-        private void SVNUpdate()
-        {
-            ProcessStartInfo startInfo = new ProcessStartInfo("cmd");
-            startInfo.UseShellExecute = true;
-            startInfo.WorkingDirectory = SelectFolderPath;
-            startInfo.Arguments = "/c" + "svn update";
-            Process.Start(startInfo);
         }
 
         // 生成

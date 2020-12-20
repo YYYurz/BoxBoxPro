@@ -14,7 +14,7 @@ namespace BB
 {
     public static class AssetUtility
     {
-        private static string sAppPath = null;
+        private static string sAppPath;
 
         public static string AppPath
         {
@@ -49,42 +49,23 @@ namespace BB
             }
         }
 
-        // public static string GetScenePath(GameEnumType.SCENE_TYPE sceneType)
+        // public static string GetScenePath(GameEnum.SCENE_TYPE sceneType)
         // {
         //     switch (sceneType)
         //     {
-        //         case GameEnumType.SCENE_TYPE.ST_SURVIVEBATTLEFIELD_SCENE:
+        //         case GameEnum.SCENE_TYPE.ST_SURVIVEBATTLEFIELD_SCENE:
         //             return Constant.AssetPath.BattleFieldScene;
-        //         case GameEnumType.SCENE_TYPE.ST_LOBBY_MAIN:
+        //         case GameEnum.SCENE_TYPE.ST_LOBBY_MAIN:
         //             return Constant.AssetPath.LobbyMainScene;
-        //         case GameEnumType.SCENE_TYPE.ST_LOGIN_SCENE:
+        //         case GameEnum.SCENE_TYPE.ST_LOGIN_SCENE:
         //             return Constant.AssetPath.LoginScene;
-        //         case GameEnumType.SCENE_TYPE.ST_MONEYBATTLEFIELD_SCENE:
+        //         case GameEnum.SCENE_TYPE.ST_MONEYBATTLEFIELD_SCENE:
         //             return Constant.AssetPath.MoneyBattleFieldScene;
         //     }
         //     return "";
         // }
 
-        // public static string GetLaunchAssetABPath()
-        // {
-        //     return Path.Combine(Application.streamingAssetsPath, Constant.AssetPath.LaunchAsset);
-        // }
-        //
-        // public static string GetSettingConfigDir()
-        // {
-        //     return Path.Combine(AppPath, "config_setting");
-        // }
-        //
-        // public static string GetDictionaryAsset(string assetName, LoadType loadType)
-        // {
-        //     return Utility.Text.Format("Assets/GameAssets/Localization/{0}/Dictionaries/{1}.{2}", GameEntry.Localization.Language.ToString(), assetName, loadType == LoadType.Text ? "xml" : "bytes");
-        // }
-        //
-        // public static string GetConfigAsset(string assetName, LoadType loadType)
-        // {
-        //     return Utility.Text.Format("Assets/GameAssets/Configs/AB/{0}.{1}", assetName, loadType == LoadType.Text ? "txt" : "bytes");
-        // }
-        //
+
         // /// <summary>
         // /// Lua列表文件
         // /// </summary>
@@ -101,7 +82,7 @@ namespace BB
         /// <returns></returns>
         public static string GetLuaAsset(string assetName)
         {
-            return string.Format("Assets/GameAssets/LuaScripts/{0}.lua.txt", assetName);
+            return Utility.Text.Format("Assets/GameAssets/LuaScripts/{0}.lua.txt", assetName);
         }
 
         /// <summary>
@@ -112,14 +93,14 @@ namespace BB
         /// <param name="fileList">得到的文件列表</param>
         public static void GetSuffixAssetPaths(string rootPath, string suffix, ref List<string> fileList)
         {
-            string[] dirs = Directory.GetDirectories(rootPath);
-            foreach (string path in dirs)
+            var dirs = Directory.GetDirectories(rootPath);
+            foreach (var path in dirs)
             {
                 GetSuffixAssetPaths(path, suffix, ref fileList);
             }
 
-            string[] files = Directory.GetFiles(rootPath);
-            foreach (string filePath in files)
+            var files = Directory.GetFiles(rootPath);
+            foreach (var filePath in files)
             {
                 if (filePath.Substring(filePath.IndexOf(".")) == suffix)
                 {
@@ -128,48 +109,59 @@ namespace BB
             }
         }
 
-        // /// <summary>
-        // /// UI
-        // /// </summary>
-        // /// <param name="assetName"></param>
-        // /// <returns></returns>
         public static string GetUIFormAsset(string assetName)
         {
             return Utility.Text.Format(Constant.AssetPath.UIFormFolder, assetName);
         }
-        
-        // /// <summary>
-        // /// 音乐
-        // /// </summary>
-        // /// <param name="assetName"></param>
-        // /// <returns></returns>
-        // public static string GetSoundAsset(string assetName)
-        // {
-        //     return Utility.Text.Format(Constant.AssetPath.SoundFolder, assetName);
-        // }
 
-        #region ENTITY
-        //
-        // /// <summary>
-        // /// 获取敌机的资源路径
-        // /// </summary>
-        // /// <param name="strAssetname"></param>
-        // /// <returns></returns>
-        // public static string GetEnemyAircraftAsset(string strPrefabName)
+        // public static string GetConfigAsset(string assetName, LoadType loadType)
         // {
-        //     return Utility.Text.Format(Constant.AssetPath.EnemyAircraftFolder, strPrefabName);
+        //     return Utility.Text.Format("Assets/GameMain/Configs/{0}.{1}", assetName, loadType == LoadType.Text ? "txt" : "bytes");
         // }
         //
-        // /// <summary>
-        // /// 背景资源路径
-        // /// </summary>
-        // /// <param name="strPrefabName"></param>
-        // /// <returns></returns>
-        // public static string GetBackgroundAsset(string strPrefabName)
+        // public static string GetDataTableAsset(string assetName, LoadType loadType)
         // {
-        //     return Utility.Text.Format(Constant.AssetPath.Background, strPrefabName);
+        //     return Utility.Text.Format("Assets/GameMain/DataTables/{0}.{1}", assetName, loadType == LoadType.Text ? "txt" : "bytes");
+        // }
+        //
+        // public static string GetDictionaryAsset(string assetName, LoadType loadType)
+        // {
+        //     return Utility.Text.Format("Assets/GameMain/Localization/{0}/Dictionaries/{1}.{2}", GameEntry.Localization.Language.ToString(), assetName, loadType == LoadType.Text ? "xml" : "bytes");
+        // }
+        //
+        // public static string GetFontAsset(string assetName)
+        // {
+        //     return Utility.Text.Format("Assets/GameMain/Fonts/{0}.ttf", assetName);
         // }
 
-        #endregion
+        public static string GetSceneAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/Scenes/{0}.unity", assetName);
+        }
+
+        public static string GetMusicAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/Music/{0}.mp3", assetName);
+        }
+
+        public static string GetSoundAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/Sounds/{0}.wav", assetName);
+        }
+
+        public static string GetEntityAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/Entities/{0}.prefab", assetName);
+        }
+
+        public static string GetEffectAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/Entities/Effects/{0}.prefab", assetName);
+        }
+
+        public static string GetUISoundAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/UI/UISounds/{0}.wav", assetName);
+        }
     }
 }

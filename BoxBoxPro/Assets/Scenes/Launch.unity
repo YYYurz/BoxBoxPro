@@ -213,6 +213,38 @@ PrefabInstance:
       propertyPath: m_InstanceRoot
       value: 
       objectReference: {fileID: 1533502540}
+    - target: {fileID: 2053117619075730571, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075730571, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_EntranceProcedureTypeName
+      value: BB.ProcedureLaunch
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075730571, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[0]
+      value: BB.ProcedureChangeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075730571, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[1]
+      value: BB.ProcedureCheckVersion
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075730571, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[2]
+      value: BB.ProcedureLaunch
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075730571, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[3]
+      value: BB.ProcedureMain
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075730571, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[4]
+      value: BB.ProcedurePreload
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075730571, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[5]
+      value: BB.ProcedureSplash
+      objectReference: {fileID: 0}
     - target: {fileID: 2053117619085661465, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

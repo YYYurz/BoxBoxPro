@@ -26,7 +26,7 @@ namespace BB
         {
             foreach (var item in lisLuaFiles)
             {
-                var preAssetInfo = new PreloadAssetInfo(item.AssetName, 0, GameEnumType.GAMEASSET_TYPE.PAT_LUAFILE, null, item.LuaName);
+                var preAssetInfo = new PreloadAssetInfo(item.AssetName, 0, GameEnum.GAME_ASSET_TYPE.LuaFile, null, item.LuaName);
                 mLisAssetInfo.Add(preAssetInfo);
             }
         }
@@ -39,9 +39,9 @@ namespace BB
             ITableReader tableReader = (ITableReader)Activator.CreateInstance(type);
             var preAssetInfo = new PreloadAssetInfo(tableReader.TablePath
                 , 0
-                , GameEnumType.GAMEASSET_TYPE.PAT_SCRIPTABLE
+                , GameEnum.GAME_ASSET_TYPE.Scriptable
                 , type
-                , new ParseConfigDataInfo(type.Name, type, tableReader, GameEnumType.GAMEASSET_TYPE.PAT_DATATABLE));
+                , new ParseConfigDataInfo(type.Name, type, tableReader, GameEnum.GAME_ASSET_TYPE.DataTable));
     
             mLisAssetInfo.Add(preAssetInfo);
         }
@@ -53,7 +53,7 @@ namespace BB
         {
             var preAssetInfo = new PreloadAssetInfo("UIForm" + nFormID
                 , 0
-                , GameEnumType.GAMEASSET_TYPE.PAT_UIFORM
+                , GameEnum.GAME_ASSET_TYPE.UIForm
                 , null
                 , userData);
 
@@ -68,7 +68,7 @@ namespace BB
         {
             var preAssetInfo = new PreloadAssetInfo(assetPath
                 , 0
-                , GameEnumType.GAMEASSET_TYPE.PAT_PREFAB
+                , GameEnum.GAME_ASSET_TYPE.Prefab
                 , null
                 , userData);
             mLisAssetInfo.Add(preAssetInfo);

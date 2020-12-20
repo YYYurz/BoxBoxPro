@@ -17,12 +17,12 @@ namespace BB
         /// <summary>
         /// 资源加载类型
         /// </summary>
-        public GameEnumType.GAMEASSET_TYPE AssetPreloadType { get; set; } = GameEnumType.GAMEASSET_TYPE.PAT_NORMAL;
+        public GameEnum.GAME_ASSET_TYPE AssetPreloadType { get; set; } = GameEnum.GAME_ASSET_TYPE.Normal;
 
         /// <summary>
         /// 当前资源状态
         /// </summary>
-        public GameEnumType.PRELOADASSET_STATUS AssetPreloadStatus { get; set; } = GameEnumType.PRELOADASSET_STATUS.PS_UNSTART;
+        public GameEnum.PRELOAD_ASSET_STATUS AssetPreloadStatus { get; set; } = GameEnum.PRELOAD_ASSET_STATUS.UnStart;
 
         /// <summary>
         /// 资源类型
@@ -34,12 +34,12 @@ namespace BB
         /// </summary>
         public object UserData { get; set; } = null;
 
-        public PreloadAssetInfo(string strAssetPath, int nSerialID, GameEnumType.GAMEASSET_TYPE preloadType, Type assetType, object userData)
+        public PreloadAssetInfo(string strAssetPath, int nSerialID, GameEnum.GAME_ASSET_TYPE preloadType, Type assetType, object userData)
         {
             AssetPath = strAssetPath;
             SerialID = nSerialID;
             AssetPreloadType = preloadType;
-            AssetPreloadStatus = GameEnumType.PRELOADASSET_STATUS.PS_UNSTART;
+            AssetPreloadStatus = GameEnum.PRELOAD_ASSET_STATUS.UnStart;
             AssetType = assetType;
             UserData = userData;
         }
