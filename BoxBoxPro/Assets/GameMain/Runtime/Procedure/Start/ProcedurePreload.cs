@@ -1,4 +1,5 @@
-﻿using GameFramework.Event;
+﻿using GameConfig;
+using GameFramework.Event;
 using UnityEngine;
 using GameFramework.Fsm;
 using GameFramework.Procedure;
@@ -56,6 +57,8 @@ namespace BB
             assetDataTableInfo.AddOneAssetInfo(typeof(DTUIFormDataTableReader));
             assetDataTableInfo.AddOneAssetInfo(typeof(DTSoundDataTableReader));
             assetDataTableInfo.AddOneAssetInfo(typeof(DTSceneTableReader));
+            assetDataTableInfo.AddOneAssetInfo(typeof(DTEntityTableReader));
+            assetDataTableInfo.AddOneAssetInfo(typeof(DTVocationTableReader));
             GameEntry.AssetPreload.AddAssetPreloadList(assetDataTableInfo);
 
             GameEntry.AssetPreload.StartPreloadAsset();

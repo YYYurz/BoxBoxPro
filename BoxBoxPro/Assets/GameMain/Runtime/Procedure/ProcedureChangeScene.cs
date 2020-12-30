@@ -52,7 +52,7 @@ namespace BB
             // GameEntry.Base.ResetNormalGameSpeed();
 
             _sceneId = procedureOwner.GetData<VarInt>(Constant.ProcedureData.NextSceneId).Value;
-            var sceneData = GameEntry.GameData.DataTableInfo.GetDataTableReader<DTSceneTableReader>().GetInfo((uint)_sceneId);
+            var sceneData = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTSceneTableReader>().GetInfo((uint)_sceneId);
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(sceneData.AssetName), Constant.AssetPriority.SceneAsset, this);
         }
 

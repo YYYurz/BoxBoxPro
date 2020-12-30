@@ -245,6 +245,26 @@ PrefabInstance:
       propertyPath: m_AvailableProcedureTypeNames.Array.data[5]
       value: BB.ProcedureSplash
       objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075788759, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_EntityGroups.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075788759, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_EntityGroups.Array.data[0].m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075788759, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_EntityGroups.Array.data[0].m_InstanceCapacity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075788759, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_EntityGroups.Array.data[0].m_InstanceAutoReleaseInterval
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053117619075788759, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
+      propertyPath: m_EntityGroups.Array.data[0].m_InstanceExpireTime
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 2053117619085661465, guid: a77892b84e52e0545a56911d36b7406f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
-namespace BB
+﻿namespace BB
 {
     public static partial class Constant
     {
@@ -16,10 +9,12 @@ namespace BB
         {
 
             public const int SceneAsset = 0;
+            public const int EntityAsset = 10;
             public const int MusicAsset = 20;
             public const int UISoundAsset = 30;
             public const int SoundAsset = 30;
             public const int UIFormAsset = 50;
+            public const int EffectAsset = 60;
 
             /// <summary>
             /// 战斗背景

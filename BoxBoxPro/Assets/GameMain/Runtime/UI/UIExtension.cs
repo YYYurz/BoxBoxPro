@@ -1,16 +1,4 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
-using GameConfig;
-using GameFramework.DataTable;
-using GameFramework.UI;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using GameConfig;
 using UnityGameFramework.Runtime;
 
 namespace BB
@@ -35,13 +23,8 @@ namespace BB
 
         public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
         {
-            DTUIFormData? uiFormDataTable = GameEntry.GameData.DataTableInfo.GetDataTableReader<DTUIFormDataTableReader>().GetInfo((uint)uiFormId);
-            if (uiFormDataTable == null)
-            {
-                Log.Error("LuaForm Open Error! invalid UIDataTable!!! FormID : {0}", uiFormId);
-                return default;
-            }
-            string strAssetPath = AssetUtility.GetUIFormAsset(uiFormDataTable.Value.AssetPath);
+            DTUIFormData? uiFormDataTable = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTUIFormDataTableReader>().GetInfo((uint)uiFormId);
+            var strAssetPath = AssetUtility.GetUIFormAsset(uiFormDataTable.Value.AssetPath);
             if (uiFormDataTable.Value.AllowMultiInstance == 0)
             {
                 if (uiComponent.IsLoadingUIForm(strAssetPath))
@@ -54,7 +37,6 @@ namespace BB
                     return null;
                 }
             }
-            
             UIFormOpenDataInfo uiFormOpenDataInfo = UIFormOpenDataInfo.Create(uiFormId, uiFormDataTable.Value.LuaFile, userData);
             return uiComponent.OpenUIForm(strAssetPath, uiFormDataTable.Value.UIGroupName, Constant.AssetPriority.UIFormAsset, (uiFormDataTable.Value.PauseCoveredUIForm == 1), uiFormOpenDataInfo);
         }
@@ -87,11 +69,11 @@ namespace BB
         //     return uiComponent.OpenUIForm(strAssetPath, uiFormDataTable.Value.UIGroupName, Constant.AssetPriority.UIFormAsset, (uiFormDataTable.Value.PauseCoveredUIForm == 1), uiFormOpenDataInfo);
         // }
         //
-        // public static void CloseAllUIForms(this UIComponent uiComponent)
-        // {
-        //     UIMaskController.Instance.ForceCloseMask();
-        //     uiComponent.CloseAllLoadedUIForms();
-        //     uiComponent.CloseAllLoadingUIForms();
-        // }
+        
+        public static void CloseAllUIForms(this UIComponent uiComponent)
+        {
+            uiComponent.CloseAllLoadedUIForms();
+            uiComponent.CloseAllLoadingUIForms();
+        }
     }
 }

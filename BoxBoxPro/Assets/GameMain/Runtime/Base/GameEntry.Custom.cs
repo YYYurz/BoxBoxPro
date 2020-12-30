@@ -9,39 +9,20 @@ namespace BB
     /// </summary>
     public partial class GameEntry : MonoBehaviour
     {
-
-        // public static PhotonNetWorkComponent PhotonNet
-        // {
-        //     get;
-        //     private set;
-        // }
-        //
-        // /// <summary>
-        // /// 游戏运行数据
-        // /// </summary>
-        public static GameDataComponent GameData
+        /// <summary>
+        /// 数据表
+        /// </summary>
+        public static TableDataComponent TableData
         {
             get;
             private set;
         }
         
-        // /// <summary>
-        // /// 定时器
-        // /// </summary>
-        // public static TimerComponent Timer
-        // {
-        //     get;
-        //     private set;
-        // }
-        //
-        // /// <summary>
-        // /// 游戏公共逻辑
-        // /// </summary>
-        // public static GameLogicComponent GameLogic
-        // {
-        //     get;
-        //     private set;
-        // }    
+        public static GameDataComponent GameData
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Lua组件
@@ -63,15 +44,34 @@ namespace BB
             get;
             private set;
         }
+        
+        /// <summary>
+        /// 定时器
+        /// </summary>
+        // public static TimerComponent Timer
+        // {
+        //     get;
+        //     private set;
+        // }
+        
+        /// <summary>
+        /// 游戏公共逻辑
+        /// </summary>
+        // public static GameLogicComponent GameLogic
+        // {
+        //     get;
+        //     private set;
+        // }    
 
         private static void InitCustomComponents()
         {
+            TableData = UnityGameFramework.Runtime.GameEntry.GetComponent<TableDataComponent>();
             GameData = UnityGameFramework.Runtime.GameEntry.GetComponent<GameDataComponent>();
-            // Timer = UnityGameFramework.Runtime.GameEntry.GetComponent<TimerComponent>();
-            // GameLogic = UnityGameFramework.Runtime.GameEntry.GetComponent<GameLogicComponent>();
             Lua = UnityGameFramework.Runtime.GameEntry.GetComponent<LuaComponent>();
             AssetPreload = UnityGameFramework.Runtime.GameEntry.GetComponent<PreloadComponent>();
             InputComponent = UnityGameFramework.Runtime.GameEntry.GetComponent<InputComponent>();
+            // Timer = UnityGameFramework.Runtime.GameEntry.GetComponent<TimerComponent>();
+            // GameLogic = UnityGameFramework.Runtime.GameEntry.GetComponent<GameLogicComponent>();
         }
     }
 }

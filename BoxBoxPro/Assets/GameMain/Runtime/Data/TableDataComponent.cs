@@ -1,18 +1,11 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
-using GameFramework.Resource;
+﻿using GameFramework.Resource;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace BB
 {
     [DisallowMultipleComponent]
-    public class GameDataComponent : GameFrameworkComponent
+    public class TableDataComponent : GameFrameworkComponent
     {
         /// <summary>
         /// 数据表

@@ -106,7 +106,7 @@ namespace BB
                         break;
                     case GameEnum.GAME_ASSET_TYPE.Scriptable:
                     case GameEnum.GAME_ASSET_TYPE.DataTable:
-                        GameEntry.GameData.LoadCustomData(iteAssetInfo.Value.AssetPath, iteAssetInfo.Value.UserData);
+                        GameEntry.TableData.LoadCustomData(iteAssetInfo.Value.AssetPath, iteAssetInfo.Value.UserData);
                         break;
                     // case GameEnum.GAMEASSET_TYPE.PAT_CONFIGTXT:
                     //     {

@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
-using GameFramework;
+﻿using GameFramework;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -151,7 +144,7 @@ namespace BB
 
         public static string GetEntityAsset(string assetName)
         {
-            return Utility.Text.Format("Assets/GameMain/Entities/{0}.prefab", assetName);
+            return Utility.Text.Format("Assets/GameAssets/Entities/{0}.prefab", assetName);
         }
 
         public static string GetEffectAsset(string assetName)
