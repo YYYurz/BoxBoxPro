@@ -8,7 +8,7 @@ namespace BB
 {
     public class LuaForm : UGuiForm
     {
-        private string mFormManagerName = "LuaFormManager";
+        private const string formManagerName = "LuaFormManager";
         private string mFormName = "";
         private LuaTable mFormManagerLuaTable;
 
@@ -40,7 +40,7 @@ namespace BB
             GameEntry.Lua.RequireLuaFile(formDataInfo.LuaFile);
 
             //再调用LuaFormManager的方法
-            mFormManagerLuaTable = GameEntry.Lua.GetClassLuaTable(mFormManagerName);
+            mFormManagerLuaTable = GameEntry.Lua.GetClassLuaTable(formManagerName);
 
             if (formDataInfo.UserData as string == "Preload")
             {
@@ -52,8 +52,6 @@ namespace BB
             {
                 GameEntry.Lua.CallLuaFunction(mFormManagerLuaTable, "Open", mFormName, CachedTransform, UIForm.SerialId, formDataInfo.UserData);
             }
-
-
         }
 
         protected override void OnClose(bool isShutdown, object userData)
