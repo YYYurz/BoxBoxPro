@@ -24,7 +24,7 @@
             public const string GameAppScene = "GameAssets/Scenes/0_GameApp";
             public const string CheckVersionScene = "GameAssets/Scenes/1_GameCheckVersion";
 
-            public static string UIFormFolder = "Assets/GameAssets/UI/{0}.prefab";
+            public const string UIFormFolder = "Assets/Art/Art2D/UI/{0}.prefab";
             public static string SoundFolder = "Assets/GameAssets/ModelResources/{0}.mp3";
 
             /// <summary>

@@ -44,7 +44,6 @@ namespace BB
 
         private void OnInputEvent(object sender, GameEventArgs args)
         {
-            Debug.Log("OnInputEvent");
             var e = (InputEventArgs) args;
             if (e == null)
             {
