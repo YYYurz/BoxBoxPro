@@ -27,7 +27,16 @@
         {
             MainLobby = 1,
         }
-        
+
+        public enum INPUT_TYPE
+        {
+            Move,
+            Attack_1,
+            Attack_2,
+            Skill_1,
+            SKill_2,
+            Dance,
+        }
     }
 }
 

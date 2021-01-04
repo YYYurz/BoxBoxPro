@@ -24,7 +24,7 @@ namespace BB
             }
             characterController = GetComponent<CharacterController>();
             GetComponent<CameraLogic>().OnStartFollowing();
-            
+
             GameEntry.Event.Subscribe(InputEventArgs.EventId, OnInputEvent);
         }
 

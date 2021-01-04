@@ -1,6 +1,7 @@
 ﻿using System;
 using GameConfig;
 using GameFramework.DataTable;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace BB
@@ -33,10 +34,10 @@ namespace BB
             entityComponent.AttachEntity(entity.Entity, ownerId, parentTransformPath, userData);
         }
 
-        public static void ShowPlayer(this EntityComponent entityComponent)
+        public static void ShowSoldier(this EntityComponent entityComponent)
         {
-            var data = new PlayerData(GenerateSerialId(), 10001);
-            entityComponent.ShowEntity(typeof(PlayerLogic), "Player", Constant.AssetPriority.EntityAsset, data);
+            var data = new CharacterData(GenerateSerialId(), 10001);
+            entityComponent.ShowEntity(typeof(SoldierLogic), "Player", Constant.AssetPriority.EntityAsset, data);
         }
 
         public static void ShowEffect(this EntityComponent entityComponent, EntityData data)

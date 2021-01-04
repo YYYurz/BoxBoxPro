@@ -1,6 +1,1 @@
 DTEntity
-DTGameConfig
-DTScene
-DTSoundData
-DTUIFormData
-DTVocation

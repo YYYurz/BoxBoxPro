@@ -10,7 +10,7 @@ namespace BB
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             Debug.Log("Enter Main Yeah");
-            GameEntry.Entity.ShowPlayer();
+            GameEntry.Entity.ShowSoldier();
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
