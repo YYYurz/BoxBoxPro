@@ -1,28 +1,34 @@
 ﻿using UnityEngine;
 using UnityGameFramework.Runtime;
 using GameFramework.Event;
+using UnityEditor.Animations;
 
 namespace BB
 {
-    public class PlayerLogic : TargetableObject
+    public abstract class CharacterLogic : TargetableObject
     {
         [SerializeField]
-        protected PlayerData myPlayerData;
+        protected CharacterData myCharacterData;
 
         private CharacterController characterController;
+        private Animator animator; 
+
         private readonly Vector3 gravityDirection = new Vector3(0f, -9.8f, 0f);
         private Vector3 moveDirection = new Vector3(0f, 0f, 0f);
+        private float rotationY;
 
+        
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
-            myPlayerData = userData as PlayerData;
-            if (myPlayerData == null)
+            myCharacterData = userData as CharacterData;
+            if (myCharacterData == null)
             {
                 Log.Error("My aircraft data is invalid.");
                 return;
             }
             characterController = GetComponent<CharacterController>();
+            animator = GetComponent<Animator>();
             GetComponent<CameraLogic>().OnStartFollowing();
 
             GameEntry.Event.Subscribe(InputEventArgs.EventId, OnInputEvent);
@@ -50,8 +56,30 @@ namespace BB
                 Log.Error("InputEventArgs is Null or Invalid");
                 return;
             }
+
+            if (e.InputType == GameEnum.INPUT_TYPE.Dance)
+            {
+                var info = animator.GetCurrentAnimatorStateInfo(0);
+                if (info.IsName("cheer_dance"))
+                    animator.SetBool("cheer_dance", false);
+                else
+                    animator.SetBool("cheer_dance", true);
+            }
+            if (e.InputType != GameEnum.INPUT_TYPE.Move)
+                return;
+            
+            Debug.Log("OninputEvent: " + e.OffsetX + e.OffsetY);
+            if (e.OffsetX > 0)
+                rotationY = Mathf.Acos(e.OffsetY / Mathf.Sqrt(e.OffsetX * e.OffsetX + e.OffsetY * e.OffsetY)) * 180 / Mathf.PI;
+            else
+                rotationY = Mathf.Acos(e.OffsetY / Mathf.Sqrt(e.OffsetX * e.OffsetX + e.OffsetY * e.OffsetY)) * 180 / Mathf.PI * -1;
+            // animator.SetFloat("Run", 1f);
+            // 防止除零导致的NaN错误
+            // if(e.OffsetX != 0f && e.OffsetY != 0f)
+                transform.rotation = Quaternion.Euler(new Vector3(0, (float)rotationY, 0));
+            
             moveDirection.Set(e.OffsetX, 0, e.OffsetY);
-            moveDirection *= myPlayerData.MoveSpeed;
+            moveDirection *= myCharacterData.MoveSpeed;
             characterController.Move(moveDirection * Time.deltaTime);
         }
     }
