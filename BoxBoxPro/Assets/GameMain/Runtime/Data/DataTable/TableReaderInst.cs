@@ -65,45 +65,45 @@ public class DTSceneTableReader : TableReader<DTScene, DTSceneList, DTSceneTable
     }
 }
 
-public class DTSoundDataTableReader : TableReader<DTSoundData, DTSoundDataList, DTSoundDataTableReader>
+public class DTSoundTableReader : TableReader<DTSound, DTSoundList, DTSoundTableReader>
 {
-    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTSoundData.bytes";   
-    protected override DTSoundData? GetData(DTSoundDataList dataList, int i)
+    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTSound.bytes";   
+    protected override DTSound? GetData(DTSoundList dataList, int i)
     {
         return dataList.Data(i);
     }
-    protected override int GetDataLength(DTSoundDataList dataList)
+    protected override int GetDataLength(DTSoundList dataList)
     {
         return dataList.DataLength;
     }
-    protected override uint GetKey(DTSoundData data)
+    protected override uint GetKey(DTSound data)
     {
         return data.Id;
     }
-    protected override DTSoundDataList GetTableDataList(ByteBuffer byteBuffer)
+    protected override DTSoundList GetTableDataList(ByteBuffer byteBuffer)
     {
-        return DTSoundDataList.GetRootAsDTSoundDataList(byteBuffer);
+        return DTSoundList.GetRootAsDTSoundList(byteBuffer);
     }
 }
 
-public class DTUIFormDataTableReader : TableReader<DTUIFormData, DTUIFormDataList, DTUIFormDataTableReader>
+public class DTUIWindowTableReader : TableReader<DTUIWindow, DTUIWindowList, DTUIWindowTableReader>
 {
-    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTUIFormData.bytes";   
-    protected override DTUIFormData? GetData(DTUIFormDataList dataList, int i)
+    public override string TablePath => "Assets/GameAssets/DataTables/bytes/DTUIWindow.bytes";   
+    protected override DTUIWindow? GetData(DTUIWindowList dataList, int i)
     {
         return dataList.Data(i);
     }
-    protected override int GetDataLength(DTUIFormDataList dataList)
+    protected override int GetDataLength(DTUIWindowList dataList)
     {
         return dataList.DataLength;
     }
-    protected override uint GetKey(DTUIFormData data)
+    protected override uint GetKey(DTUIWindow data)
     {
         return data.Id;
     }
-    protected override DTUIFormDataList GetTableDataList(ByteBuffer byteBuffer)
+    protected override DTUIWindowList GetTableDataList(ByteBuffer byteBuffer)
     {
-        return DTUIFormDataList.GetRootAsDTUIFormDataList(byteBuffer);
+        return DTUIWindowList.GetRootAsDTUIWindowList(byteBuffer);
     }
 }
 

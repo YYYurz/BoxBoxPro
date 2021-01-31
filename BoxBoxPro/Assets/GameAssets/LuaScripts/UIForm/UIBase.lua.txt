@@ -1,24 +1,24 @@
 local LuaBehaviour = require "Framework/Common/LuaBehaviour"
 local LuaCall = CS.Hr.LuaCallStatic
 
-local UIBase = {}
+---@class UIBase : LuaBehaviour Lua层UI 基类
+local UIBase = LuaBehaviour:New()
 
-function UIBase:OnCreate(transform, objs)
-	self.transform = transform
+function UIBase:OnCreate()
+	print("UIBase : OnCreate")
 	self.arrUnityEventBase = {}
 	self.tableEventListener = {}
 	self.tableLoadAsset = {}
 end
 
- function UIBase:OnOpen(serializeID, objs)
-	self.serializeID = serializeID
-end
-
- function UIBase:OnEnable()
+ function UIBase:OnOpen()
+	 print("UIBase : OnOpen")
+	 --self.serializeID = serializeID
 end
 
  function UIBase:OnDestroy()
-	for k, _v in pairs(self.arrUnityEventBase) do
+	 print("UIBase : OnDestroy")
+	 for k, _v in pairs(self.arrUnityEventBase) do
 		k:RemoveAllListeners()
 		k:Invoke()
 	end
@@ -27,7 +27,8 @@ end
 end
 
  function UIBase:OnClose()
-	for k, v in pairs(self.tableEventListener) do
+	 print("UIBase : OnClose")
+	 for k, v in pairs(self.tableEventListener) do
 		LuaCall.RemoveEvent(k, v)
 	end
 
@@ -61,5 +62,4 @@ function UIBase:LuaCall()
 	LuaCall()
 end
 
-LuaBehaviour:New(UIBase)
 return UIBase

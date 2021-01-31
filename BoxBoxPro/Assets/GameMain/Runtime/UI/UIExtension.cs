@@ -5,25 +5,27 @@ namespace BB
 {
     public static class UIExtension
     {
-        public static bool HasUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
+        public static bool IsUIOpen(this UIComponent uiComponent, int uiFormId)
         {
-            return uiComponent.HasUIForm(uiFormId, uiGroupName);
+            var assetName = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTUIWindowTableReader>().GetInfo((uint)uiFormId).AssetPath;
+            return uiComponent.HasUIForm(assetName);
         }
 
-        public static UGuiForm GetUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
+        public static void CloseUI(this UIComponent uiComponent, int uiFormId)
         {
-            return uiComponent.GetUIForm(uiFormId, uiGroupName);
+            var assetName = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTUIWindowTableReader>().GetInfo((uint)uiFormId).AssetPath;
+            var uiForm = uiComponent.GetUIForm(assetName);
+            if (uiForm == null)
+            {
+                Log.Error("UIExtension : Try to close UI but failed UI name : " + assetName);
+                return;
+            }
+            uiComponent.CloseUIForm(uiForm);
         }
 
-        
-        public static void CloseUIForm(this UIComponent uiComponent, UGuiForm uiForm)
+        public static int? OpenUI(this UIComponent uiComponent, int uiFormId, object userData = null)
         {
-            uiComponent.CloseUIForm(uiForm.UIForm);
-        }
-
-        public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
-        {
-            DTUIFormData? uiFormDataTable = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTUIFormDataTableReader>().GetInfo((uint)uiFormId);
+            DTUIWindow? uiFormDataTable = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTUIWindowTableReader>().GetInfo((uint)uiFormId);
             var strAssetPath = AssetUtility.GetUIFormAsset(uiFormDataTable.Value.AssetPath);
             if (uiFormDataTable.Value.AllowMultiInstance == 0)
             {
@@ -37,7 +39,7 @@ namespace BB
                     return null;
                 }
             }
-            UIFormOpenDataInfo uiFormOpenDataInfo = UIFormOpenDataInfo.Create(uiFormId, uiFormDataTable.Value.LuaFile, userData);
+            var uiFormOpenDataInfo = UIFormOpenDataInfo.Create(uiFormId, uiFormDataTable.Value.LuaFile, userData);
             return uiComponent.OpenUIForm(strAssetPath, uiFormDataTable.Value.UIGroupName, Constant.AssetPriority.UIFormAsset, (uiFormDataTable.Value.PauseCoveredUIForm == 1), uiFormOpenDataInfo);
         }
 

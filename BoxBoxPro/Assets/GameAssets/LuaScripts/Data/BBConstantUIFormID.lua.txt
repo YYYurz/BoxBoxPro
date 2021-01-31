@@ -2,5 +2,5 @@ local BBConstantUIFormID = {}
 BBConstantUIFormID.Undefined = 0
 BBConstantUIFormID.UITipsForm = 1
 BBConstantUIFormID.UIFormHideMask = 10
-BBConstantUIFormID.StartWindow = 111
+BBConstantUIFormID.LoginWindow = 2001
 return BBConstantUIFormID

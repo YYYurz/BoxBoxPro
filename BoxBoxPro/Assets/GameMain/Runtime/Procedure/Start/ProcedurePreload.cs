@@ -28,9 +28,6 @@ namespace BB
             GameEntry.Event.Unsubscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
             GameEntry.Event.Unsubscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
             GameEntry.Event.Unsubscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFormFailure);
-            
-            // test
-            GameEntry.UI.OpenUIForm(Constant.UIFormID.StartWindow);
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -54,8 +51,8 @@ namespace BB
             
             var assetDataTableInfo = new PreloadDataTableList();
             assetDataTableInfo.AddOneAssetInfo(typeof(DTGameConfigTableReader));
-            assetDataTableInfo.AddOneAssetInfo(typeof(DTUIFormDataTableReader));
-            assetDataTableInfo.AddOneAssetInfo(typeof(DTSoundDataTableReader));
+            assetDataTableInfo.AddOneAssetInfo(typeof(DTUIWindowTableReader));
+            assetDataTableInfo.AddOneAssetInfo(typeof(DTSoundTableReader));
             assetDataTableInfo.AddOneAssetInfo(typeof(DTSceneTableReader));
             assetDataTableInfo.AddOneAssetInfo(typeof(DTEntityTableReader));
             assetDataTableInfo.AddOneAssetInfo(typeof(DTVocationTableReader));

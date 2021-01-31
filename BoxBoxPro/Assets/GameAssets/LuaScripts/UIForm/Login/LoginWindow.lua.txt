@@ -1,0 +1,38 @@
+﻿local UIBase = require "UIForm/UIBase"
+local LoginWindow = UIBase:New()
+--LuaFormManager.formClassDict["StartWindow"] = LoginWindow
+
+function LoginWindow:ManualInit()
+	--self.LoginBtn = self:GetButton(self.transform, "LoginBtn")
+	--
+	--self:AddListener(self.LoginBtn.onClick, self.OnLogin)
+end
+
+function LoginWindow:OnCreate()
+	UIBase:OnCreate()
+	self:ManualInit()
+	print("OnCreate")
+end
+
+function LoginWindow:OnOpen()
+	UIBase:OnOpen()
+	print("OnOpen")
+end
+
+function LoginWindow:OnClose()
+	UIBase:OnClose()
+	print("OnClose")
+end
+
+function LoginWindow:OnDestroy()
+	UIBase:OnDestroy()
+	print("OnDestroy")
+	self = nil
+	LoginWindow = nil
+end
+
+function LoginWindow:OnLogin()
+	print("OnClickLogin")
+end
+
+return LoginWindow

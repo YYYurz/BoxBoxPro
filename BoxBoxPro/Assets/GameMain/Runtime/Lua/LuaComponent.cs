@@ -80,7 +80,6 @@ namespace BB
         public void LoadLuaFilesConfig()
         {
             var callBacks = new LoadAssetCallbacks(OnLoadLuaFilesConfigSuccess, OnLoadLuaFilesConfigFailure);
-            Debug.Log("Lua");
             var assetName = AssetUtility.GetLuaFileConfig();
             _resourceComponent.LoadAsset(assetName, callBacks);
         }
@@ -94,6 +93,7 @@ namespace BB
             if (LuaFileInfos == null)
             {
                 Log.Error("ParseLuaFilesConfig Error!!!!!! LuaFileInfos is null!");
+                return;
             }
             LuaFileInfos.Clear();
             var contentLines = content.Split('\n');
@@ -107,7 +107,7 @@ namespace BB
                 var info = GameUtils.DeserializeObject<LuaFileInfo>(contentLines[i]);
                 if (info == null)
                 {
-                    Log.Error("invalid pase result!");
+                    Log.Error("invalid parse result!");
                 }
                 else
                 {
@@ -128,7 +128,6 @@ namespace BB
                 // _luaEnv.AddBuildin("lpeg", XLua.LuaDLL.Lua.LoadLpeg);
                 // _luaEnv.AddBuildin("pb", XLua.LuaDLL.Lua.LoadPb);
                 // _luaEnv.AddBuildin("protobuf.c", XLua.LuaDLL.Lua.LoadProtobufC);
-                Log.Debug("InitLuaEnvExternalInterface success!!!");
             }
             else
             {
@@ -158,7 +157,6 @@ namespace BB
                 return;
             }
             RequireLuaFile(Constant.Lua.LuaGameMainScript);
-            SafeDoString("GameMain.Start()");
         }
 
         /// <summary>
@@ -185,8 +183,7 @@ namespace BB
         /// <param name="luaName"></param>
         public void DoLuaFile(string luaName)
         {
-            string strValue;
-            if (CacheLuaDict.TryGetValue(luaName, out strValue))
+            if (CacheLuaDict.TryGetValue(luaName, out var strValue))
             {
                 SafeDoString(strValue);
             }
@@ -198,24 +195,28 @@ namespace BB
 
         public void RequireLuaFile(string scriptName)
         {
-            SafeDoString(string.Format("require('{0}')", scriptName));
+            SafeDoString($"require('{scriptName}')");
         }
 
         public void SafeDoString(string scriptContent)
         {
+            // ReSharper disable once InvertIf
             if (_luaEnv != null)
             {
                 try
                 {
-                    Log.Debug(scriptContent + "SafeDoString");
                     _luaEnv.DoString(scriptContent);
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    string msg = string.Format("xLua exception : {0}\n {1} scriptContent:{2}", ex.Message, ex.StackTrace, scriptContent);
-                    Log.Error(msg, 0);
+                    Log.Error($"xLua exception : {ex.Message}\n {ex.StackTrace} scriptContent:{scriptContent}");
                 }
             }
+        }
+
+        public LuaTable DoStringCustom(string scriptName)
+        {
+            return _luaEnv.DoStringCustom($"return require('{scriptName}')");
         }
 
         /// <summary>
@@ -227,7 +228,7 @@ namespace BB
         /// <returns></returns>
         public LuaTable GetClassLuaTable(string className)
         {
-            LuaTable classLuaTable = _luaEnv.Global.Get<LuaTable>(className);
+            var classLuaTable = _luaEnv.Global.Get<LuaTable>(className);
             return classLuaTable;
         }
 
@@ -245,14 +246,10 @@ namespace BB
                 LuaTable classLuaTable = _luaEnv.Global.Get<LuaTable>(className);
                 LuaTable luaTable = classLuaTable.Get<LuaTable>(tableName);
                 classLuaTable.Dispose();
-                classLuaTable = null;
                 return luaTable;
             }
-            else
-            {
-                Log.Error("Lua file '{0}' is not load,please execute LoadLuaFile() first.", luaName);
-                return null;
-            }
+            Log.Error("Lua file '{0}' is not load,please execute LoadLuaFile() first.", luaName); 
+            return null;
         }
 
         /// <summary>
@@ -266,9 +263,8 @@ namespace BB
                 try
                 {
                     LuaFunction luaFunction = luaTable.Get<LuaFunction>(funcName);
-                    luaFunction.Call(param);
+                    luaFunction.Call(luaTable, param);
                     luaFunction.Dispose();
-                    luaFunction = null;
                 }
                 catch (Exception exception)
                 {
@@ -299,8 +295,6 @@ namespace BB
                     luaFunc.Call(parms);
                     classLuaTable.Dispose();
                     luaFunc.Dispose();
-                    classLuaTable = null;
-                    luaFunc = null;
                 }
                 catch (Exception exception)
                 {
@@ -324,7 +318,7 @@ namespace BB
             var textAsset = (TextAsset)asset;
             Log.Info("Load LuaFilesConfig: '{0}' success.", assetName);
 
-            string content = textAsset.text;
+            var content = textAsset.text;
             //开始解析Lua配置文件列表
             ParseLuaFilesConfig(content);
             _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFilesConfigSuccessEventArgs>().Fill(assetName, content));
@@ -334,18 +328,14 @@ namespace BB
 
         private void OnLoadLuaAssetSuccess(string assetName, object asset, float duration, object userData)
         {
-            string luaName = (string)userData;
-
+            var luaName = (string)userData;
             if (CacheLuaDict.ContainsKey(luaName))
             {
                 Log.Warning("CacheLuaDict has exist lua file '{0}'.", luaName);
                 return;
             }
-
-            TextAsset textAsset = (TextAsset)asset;
+            var textAsset = (TextAsset)asset;
             CacheLuaDict.Add(luaName, textAsset.text);
-
-            // Debug.Log($"Load lua '{luaName}' success. duration:{duration}");
             _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName, luaName, textAsset.text, duration));
         }
 
@@ -358,11 +348,12 @@ namespace BB
 
         private static byte[] CustomLoader(ref string filepath)
         {
-             var scriptPath = string.Empty;
              var strLuaName = filepath.Replace(".", "/");
-            
-             string strLuaContent;
-             if (GameEntry.Lua.CacheLuaDict.TryGetValue(strLuaName, out strLuaContent))
+             if (strLuaName == "emmy_core")
+             {
+                 return null;
+             }
+             if (GameEntry.Lua.CacheLuaDict.TryGetValue(strLuaName, out var strLuaContent))
              {
                  return Utility.Converter.GetBytes(strLuaContent);
              }

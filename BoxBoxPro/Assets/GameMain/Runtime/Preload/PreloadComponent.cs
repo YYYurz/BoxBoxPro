@@ -220,7 +220,6 @@ namespace BB
         private void OnLoadLuaSuccess(object sender, GameEventArgs e)
         {
             LoadLuaSuccessEventArgs args = (LoadLuaSuccessEventArgs)e;
-            //Log.Debug("PreloadComponent OnLoadLuaSuccess! luaFile:{0} duration:{1}", args.AssetName, args.Duration);
             if (CheckNormalAssetLoaded(args.AssetName))
             {
                 OneAssetLoadSuccess(args.AssetName);
@@ -230,7 +229,6 @@ namespace BB
         private void OnLoadCustomDataSuccess(object sender, GameEventArgs e)
         {
             LoadCustomDataSuccessEventArgs args = e as LoadCustomDataSuccessEventArgs;
-            Log.Debug("PreloadComponent OnLoadConfigSuccess! DataTable:{0} duration:{1}", args.DataName, args.Duration);
             if (CheckNormalAssetLoaded(args.DataName))
             {
                 OneAssetLoadSuccess(args.DataName);

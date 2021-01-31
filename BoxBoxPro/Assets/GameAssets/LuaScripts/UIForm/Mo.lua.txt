@@ -1,0 +1,9 @@
+local LuaBehaviour = require "Framework/Common/LuaBehaviour"
+
+local Mo = {}
+
+Mo.a = 100
+
+--package.loaded["UIForm/Mo"] = Mo
+LuaBehaviour:New(Mo)
+--return Mol

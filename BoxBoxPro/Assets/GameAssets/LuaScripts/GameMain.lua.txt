@@ -1,3 +1,9 @@
+---LuaDebugger
+package.cpath = package.cpath .. ';F:/BoxBoxPro/BoxBoxPro/EmmyLuaDebugger/?.dll'
+print(package.cpath)
+local dbg = require('emmy_core')
+dbg.tcpListen('localhost', 9966)
+
 -- 全局模块
 require "Global.Global"
 
@@ -5,25 +11,34 @@ require "Global.Global"
 GameMain = {}
 
 --主入口函数。从这里开始lua逻辑
-local function Start()
-	print("GameMain start...")
+function GameMain:Start()
+	print("GameMain start!!!")
+	self:RequireLogic()
+end
 
-	--LuaCSharpDataHelper:Startup()
-	LuaFormManager:Startup()
-
-	-- 模块启动
-	--UpdateManager:GetInstance():Startup()
-	--TimerManager:GetInstance():Startup()
+--- 加载全局Logic模块
+function GameMain:RequireLogic()
+	local logicPath = {
+		
+	}
+	for _, v in ipairs(logicPath) do
+		require(v)
+	end
 end
  
-local function OnApplicationQuit()
-	-- 模块注销
+function GameMain:OnApplicationQuit()
 	UpdateManager:GetInstance():Dispose()
 	TimerManager:GetInstance():Dispose()
 end
 
--- GameMain公共接口，其它的一律为私有接口，只能在本模块访问
-GameMain.Start = Start
-GameMain.OnApplicationQuit = OnApplicationQuit
+GameMain:Start()
 
-return GameMain
+local LoginWindow = {}
+
+LoginWindow.a = 1
+
+function LoginWindow:Func()
+	print("LoginWindow Func : " .. self.a)
+end
+
+return LoginWindow

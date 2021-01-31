@@ -8,21 +8,29 @@ namespace BB
 {
     public class LuaForm : UGuiForm
     {
-        private const string formManagerName = "LuaFormManager";
-        private string mFormName = "";
-        private LuaTable mFormManagerLuaTable;
-
-        public UIFormOpenDataInfo formDataInfo { get; private set; } = null;
+        private string uiName;
+        private LuaTable luaScriptTable;
+        private UIFormOpenDataInfo formDataInfo { get; set; }
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-
-            mFormName = Name;
-            int nCloneIndex = mFormName.IndexOf("(Clone)");
-            if (nCloneIndex >= 0)
+            formDataInfo = userData as UIFormOpenDataInfo;
+            if (formDataInfo == null)
             {
-                mFormName = mFormName.Substring(0, nCloneIndex);
+                Log.Error("LuaForm Open Error! invalid userData!");
+                return;
+            }
+            
+            uiName = Name;
+            uiName = Name.Replace("(Clone)", "");
+
+            luaScriptTable = GameEntry.Lua.DoStringCustom( formDataInfo.LuaFile);
+            if (luaScriptTable != null)
+            {
+                luaScriptTable.Set("transform", transform);
+                luaScriptTable.Set("gameObject", gameObject);
+                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnCreate");
             }
         }
 
@@ -36,29 +44,24 @@ namespace BB
                 Log.Error("LuaForm Open Error! invalid userData!");
                 return;
             }
-
-            GameEntry.Lua.RequireLuaFile(formDataInfo.LuaFile);
-
-            //再调用LuaFormManager的方法
-            mFormManagerLuaTable = GameEntry.Lua.GetClassLuaTable(formManagerName);
-
             if (formDataInfo.UserData as string == "Preload")
             {
                 return;
             }
 
             // GameEntry.UI.OpenUIForm(Constant.UIFormID.UIFormHideMask);
-            if (mFormManagerLuaTable != null)
+            if (luaScriptTable != null)
             {
-                GameEntry.Lua.CallLuaFunction(mFormManagerLuaTable, "Open", mFormName, CachedTransform, UIForm.SerialId, formDataInfo.UserData);
+                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnOpen", formDataInfo.UserData);
+                // GameEntry.Lua.CallLuaFunction(luaScriptTable, "Open", uiName, CachedTransform, UIForm.SerialId, formDataInfo.UserData);
             }
         }
 
         protected override void OnClose(bool isShutdown, object userData)
         {
-            if (mFormManagerLuaTable != null)
+            if (luaScriptTable != null)
             {
-                GameEntry.Lua.CallLuaFunction(mFormManagerLuaTable, "OnClose", mFormName);
+                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnClose");
             }
 
             base.OnClose(isShutdown, userData);
@@ -76,12 +79,10 @@ namespace BB
 
         public void OnDestroy()
         {
-            if (mFormManagerLuaTable != null)
-            {
-                GameEntry.Lua.CallLuaFunction(mFormManagerLuaTable, "OnDestroy", mFormName);
-                mFormManagerLuaTable.Dispose();
-                mFormManagerLuaTable = null;
-            }
+            if (luaScriptTable == null) return;
+            GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnDestroy");
+            luaScriptTable.Dispose();
+            luaScriptTable = null;
         }
 
 

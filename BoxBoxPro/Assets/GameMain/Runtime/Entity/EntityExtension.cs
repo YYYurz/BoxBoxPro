@@ -1,7 +1,5 @@
 ﻿using System;
 using GameConfig;
-using GameFramework.DataTable;
-using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace BB

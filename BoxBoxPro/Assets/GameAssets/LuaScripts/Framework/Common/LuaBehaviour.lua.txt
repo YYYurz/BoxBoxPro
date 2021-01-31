@@ -1,8 +1,7 @@
-local LuaBehaviour = {}
+local LuaUIHelper = LuaUIHelper
 
-function LuaBehaviour:New(o)
-	return self:ctor(o or {})
-end
+---@class LuaBehaviour Lua侧的Behavior基类
+local LuaBehaviour = {}
 
 function LuaBehaviour:New(target)
 	target = target or {}
@@ -11,11 +10,9 @@ function LuaBehaviour:New(target)
 	return target
 end
 
---function LuaBehaviour:ctor(target)
---	local meta = {}
---	return setmetatable(target, {__index = setmetatable(meta, {__index = self}),
---		__newindex = meta})
---end
-
+function LuaBehaviour:GetButton(path)
+	print("LuaBehaviour GetButton path: " .. path)
+	return LuaUIHelper.GetButton(path)
+end
 
 return LuaBehaviour

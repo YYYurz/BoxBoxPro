@@ -19,11 +19,10 @@ namespace BB
 
         public void ParseDataTable(object asset, ParseConfigDataInfo parseConfigDataInfo)
         {
-            TextAsset textAsset = asset as TextAsset;
-            ITableReader tableReader = parseConfigDataInfo.UserData as ITableReader;
+            var textAsset = asset as TextAsset;
+            var tableReader = parseConfigDataInfo.UserData as ITableReader;
             tableReader.LoadDataFile(textAsset.bytes);
             mDicDataTableReaders[parseConfigDataInfo.ConfigClassType] = tableReader;
-            Log.Debug("DataTableAssets: ParseData Success! Type[{0}]", parseConfigDataInfo.ConfigClassType.Name);
         }
 
         public T GetDataTableReader<T>()

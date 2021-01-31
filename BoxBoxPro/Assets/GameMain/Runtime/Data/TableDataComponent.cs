@@ -21,7 +21,6 @@ namespace BB
         
         public void LoadCustomData(string strAssetPath, object userData)
         {
-            Log.Debug("LoadCustomData " + strAssetPath);
             GameEntry.Resource.LoadAsset(strAssetPath, LoadAssetCallbacks, userData);
         }
         
@@ -32,7 +31,6 @@ namespace BB
 
         private void OnLoadDataFileSuccess(string assetName, object asset, float duration, object userData)
         {
-            Log.Debug("GameDataComponent Load data file success! name:{0} duration:{1}", assetName, duration);
             ParseConfigDataInfo parseConfigInfo = userData as ParseConfigDataInfo;
             if (parseConfigInfo == null)
             {
