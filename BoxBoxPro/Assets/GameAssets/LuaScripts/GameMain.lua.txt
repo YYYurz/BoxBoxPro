@@ -1,11 +1,11 @@
 ---LuaDebugger
-package.cpath = package.cpath .. ';F:/BoxBoxPro/BoxBoxPro/EmmyLuaDebugger/?.dll'
+package.cpath = package.cpath .. ';D:/Study/UnityProject/BoxBoxPro/BoxBoxPro/EmmyLuaDebugger/?.dll'
 print(package.cpath)
 local dbg = require('emmy_core')
 dbg.tcpListen('localhost', 9966)
 
 -- 全局模块
-require "Global.Global"
+require "Global"
 
 -- 定义为全局模块，整个lua程序的入口类
 GameMain = {}

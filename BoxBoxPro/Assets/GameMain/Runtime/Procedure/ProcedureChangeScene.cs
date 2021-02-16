@@ -12,8 +12,8 @@ namespace BB
     {
         private const int MenuSceneId = 1;
 
-        private bool _isChangeSceneComplete = false;
-        private int _backgroundMusicId;
+        private bool isChangeSceneComplete = false;
+        private int backgroundMusicId;
         private int _sceneId;
 
         private GameObject m_SceneObj = null;
@@ -25,7 +25,7 @@ namespace BB
 
             // UISplash = GameObject.Find("Splash");
             
-            _isChangeSceneComplete = false;
+            isChangeSceneComplete = false;
             m_SceneObj = null;
 
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
@@ -70,7 +70,7 @@ namespace BB
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-            if (!_isChangeSceneComplete)
+            if (!isChangeSceneComplete)
             {
                 return;
             }
@@ -89,12 +89,12 @@ namespace BB
 
             Log.Info("Load scene '{0}' OK.", ne.SceneAssetName);
 
-            if (_backgroundMusicId > 0)
+            if (backgroundMusicId > 0)
             {
                 // GameEntry.Sound.PlayMusic(m_BackgroundMusicId);
             }
 
-            _isChangeSceneComplete = true;
+            isChangeSceneComplete = true;
         }
 
 

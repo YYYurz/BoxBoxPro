@@ -66,9 +66,7 @@ namespace XLua
                 }
                 if (LuaAPI.lua_pcall(_L, 0, -1, errFunc) == 0)
                 {
-                    ol = LuaAPI.lua_gettop(_L);
                     LuaAPI.lua_remove(_L, errFunc);
-                    ol = LuaAPI.lua_gettop(_L);
                     return luaEnv.translator.popValue<T>(_L, oldTop);
                 }
                 luaEnv.ThrowExceptionFromError(oldTop);

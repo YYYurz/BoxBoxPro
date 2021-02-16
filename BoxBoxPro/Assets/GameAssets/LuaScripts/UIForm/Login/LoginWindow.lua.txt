@@ -1,6 +1,7 @@
 ﻿local UIBase = require "UIForm/UIBase"
+
+---@class LoginWindow : UIBase 登录界面
 local LoginWindow = UIBase:New()
---LuaFormManager.formClassDict["StartWindow"] = LoginWindow
 
 function LoginWindow:ManualInit()
 	--self.LoginBtn = self:GetButton(self.transform, "LoginBtn")

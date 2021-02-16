@@ -11,6 +11,8 @@ namespace BB
     /// </summary>
     public static class LuaUIHelper
     {
+        public static bool IsUIOpen(int uiFormID) => GameEntry.UI.IsUIOpen(uiFormID);
+        
         public static void OpenWindow(int uiFormID) => GameEntry.UI.OpenUI(uiFormID);
 
         public static void CloseWindow(int uiFormID) => GameEntry.UI.CloseUI(uiFormID);
@@ -24,15 +26,33 @@ namespace BB
             }
             var childObj = selfObj.transform.Find(path);
             var targetComponent = childObj.GetComponent<T>();
-            return targetComponent;
+            return targetComponent;  }
+
+        public static Text GetText(GameObject obj, string path)
+        {
+            return GetChild<Text>(obj, path);
+        }
+        
+        public static Image GetImage(GameObject obj, string path)
+        {
+            return GetChild<Image>(obj, path);
+        }
+        
+        public static RawImage GetRawImage(GameObject obj, string path)
+        {
+            return GetChild<RawImage>(obj, path);
+        }
+        
+        public static Button GetButton(GameObject obj, string path)
+        {
+            return GetChild<Button>(obj, path);
         }
 
-        public static Button GetButton(Transform selfTrans, string path)
+        public static Slider GetSlider(GameObject obj, string path)
         {
-            return GetChild<Button>(selfTrans.gameObject, path);
+            return GetChild<Slider>(obj, path);
         }
-        
-        
+
     }
 
 // #if UNITY_EDITOR

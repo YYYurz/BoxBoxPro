@@ -3,6 +3,10 @@ local LuaUIHelper = LuaUIHelper
 ---@class CommonFunction 公共函数调用接口
 CommonFunction = {}
 
+function CommonFunction:IsUIOpen(uiFormID)
+	LuaUIHelper.IsUIOpen(uiFormID)
+end
+
 function CommonFunction:OpenWindow(uiFormID)
 	LuaUIHelper.OpenWindow(uiFormID)
 end
@@ -10,3 +14,5 @@ end
 function CommonFunction:CloseWindow(uiFormID)
 	LuaUIHelper.CloseWindow(uiFormID)
 end
+
+return CommonFunction

@@ -31,7 +31,6 @@ end
 	 for k, v in pairs(self.tableEventListener) do
 		LuaCall.RemoveEvent(k, v)
 	end
-
 	self.tableEventListener = {}
 
 	for k,v in pairs(self.tableLoadAsset) do

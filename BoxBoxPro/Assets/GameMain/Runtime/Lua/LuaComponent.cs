@@ -337,6 +337,7 @@ namespace BB
             var textAsset = (TextAsset)asset;
             CacheLuaDict.Add(luaName, textAsset.text);
             _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName, luaName, textAsset.text, duration));
+            Log.Debug($"OnLoadLuaAssetSuccess {assetName}");
         }
 
         private void OnLoadLuaAssetFailure(string assetName, string dependencyAssetName, int loadedCount, int totalCount, object userData)
@@ -348,7 +349,7 @@ namespace BB
 
         private static byte[] CustomLoader(ref string filepath)
         {
-             var strLuaName = filepath.Replace(".", "/");
+            var strLuaName = filepath.Replace(".", "/");
              if (strLuaName == "emmy_core")
              {
                  return null;

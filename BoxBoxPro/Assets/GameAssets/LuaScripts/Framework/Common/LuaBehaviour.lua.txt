@@ -10,9 +10,24 @@ function LuaBehaviour:New(target)
 	return target
 end
 
-function LuaBehaviour:GetButton(path)
-	print("LuaBehaviour GetButton path: " .. path)
-	return LuaUIHelper.GetButton(path)
+function LuaBehaviour:GetText(obj, path)
+	return LuaUIHelper.GetText(obj, path)
+end
+
+function LuaBehaviour:GetImage(obj, path)
+	return LuaUIHelper.GetImage(obj, path)
+end
+
+function LuaBehaviour:GetRawImage(obj, path)
+	return LuaUIHelper.GetRawImage(obj, path)
+end
+
+function LuaBehaviour:GetButton(obj, path)
+	return LuaUIHelper.GetButton(obj, path)
+end
+
+function LuaBehaviour:GetSlider(obj, path)
+	return LuaUIHelper.GetSlider(obj, path)
 end
 
 return LuaBehaviour

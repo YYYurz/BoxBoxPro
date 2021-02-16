@@ -1,10 +1,10 @@
+------------------------- C# --------------------------
+LuaUIHelper = CS.BB.LuaUIHelper
+-------------------------------------------------------
+
 ------------------------- Lua -------------------------
 UIBase = require "UIForm.UIBase"
 LuaFormManager = require "Framework.UI.LuaFormManager"
 UIFormID = require "Data.BBConstantUIFormID"
 CF = require "Framework.Common.CommonFunction"
--------------------------------------------------------
-
-------------------------- C# --------------------------
-LuaUIHelper = CS.BB.LuaUIHelper
 -------------------------------------------------------
