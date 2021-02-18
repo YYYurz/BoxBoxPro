@@ -1,3 +1,5 @@
+--- 全局公共组件都在这里添加
+
 ------------------------- C# --------------------------
 LuaUIHelper = CS.BB.LuaUIHelper
 -------------------------------------------------------
@@ -6,5 +8,6 @@ LuaUIHelper = CS.BB.LuaUIHelper
 UIBase = require "UIForm.UIBase"
 LuaFormManager = require "Framework.UI.LuaFormManager"
 UIFormID = require "Data.BBConstantUIFormID"
-CF = require "Framework.Common.CommonFunction"
+CF = require "Common.CommonFunction"
+UIEventID = require "Common.EventID"
 -------------------------------------------------------

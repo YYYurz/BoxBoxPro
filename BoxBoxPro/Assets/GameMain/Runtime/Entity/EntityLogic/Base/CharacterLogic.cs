@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityGameFramework.Runtime;
 using GameFramework.Event;
-using UnityEditor.Animations;
 
 namespace BB
 {
@@ -65,19 +64,27 @@ namespace BB
                 else
                     animator.SetBool("cheer_dance", true);
             }
+
             if (e.InputType != GameEnum.INPUT_TYPE.Move)
                 return;
-            
+            if (e.OffsetX.Equals(0f) && e.OffsetY.Equals(0f))
+            {
+                animator.SetFloat("walk", 0f);
+                return;
+            }
+
             Debug.Log("OninputEvent: " + e.OffsetX + e.OffsetY);
             if (e.OffsetX > 0)
-                rotationY = Mathf.Acos(e.OffsetY / Mathf.Sqrt(e.OffsetX * e.OffsetX + e.OffsetY * e.OffsetY)) * 180 / Mathf.PI;
+                rotationY = Mathf.Acos(e.OffsetY / Mathf.Sqrt(e.OffsetX * e.OffsetX + e.OffsetY * e.OffsetY)) * 180 /
+                            Mathf.PI;
             else
-                rotationY = Mathf.Acos(e.OffsetY / Mathf.Sqrt(e.OffsetX * e.OffsetX + e.OffsetY * e.OffsetY)) * 180 / Mathf.PI * -1;
-            // animator.SetFloat("Run", 1f);
+                rotationY = Mathf.Acos(e.OffsetY / Mathf.Sqrt(e.OffsetX * e.OffsetX + e.OffsetY * e.OffsetY)) * 180 /
+                    Mathf.PI * -1;
+            animator.SetFloat("walk", 1f);
             // 防止除零导致的NaN错误
             // if(e.OffsetX != 0f && e.OffsetY != 0f)
-                transform.rotation = Quaternion.Euler(new Vector3(0, (float)rotationY, 0));
-            
+            transform.rotation = Quaternion.Euler(new Vector3(0, (float) rotationY, 0));
+
             moveDirection.Set(e.OffsetX, 0, e.OffsetY);
             moveDirection *= myCharacterData.MoveSpeed;
             characterController.Move(moveDirection * Time.deltaTime);

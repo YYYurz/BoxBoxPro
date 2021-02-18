@@ -8,13 +8,14 @@ namespace BB
         public static bool IsUIOpen(this UIComponent uiComponent, int uiFormId)
         {
             var assetName = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTUIWindowTableReader>().GetInfo((uint)uiFormId).AssetPath;
-            return uiComponent.HasUIForm(assetName);
+            return uiComponent.HasUIForm(AssetUtility.GetUIFormAsset(assetName));
         }
 
         public static void CloseUI(this UIComponent uiComponent, int uiFormId)
         {
             var assetName = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTUIWindowTableReader>().GetInfo((uint)uiFormId).AssetPath;
-            var uiForm = uiComponent.GetUIForm(assetName);
+            var uiForm = uiComponent.GetUIForm(AssetUtility.GetUIFormAsset(assetName));
+            var uis = uiComponent.GetAllLoadedUIForms();
             if (uiForm == null)
             {
                 Log.Error("UIExtension : Try to close UI but failed UI name : " + assetName);

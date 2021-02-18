@@ -11,6 +11,8 @@ namespace BB
     /// </summary>
     public static class LuaUIHelper
     {
+        public static bool IsEditor() => Application.isEditor;
+        
         public static bool IsUIOpen(int uiFormID) => GameEntry.UI.IsUIOpen(uiFormID);
         
         public static void OpenWindow(int uiFormID) => GameEntry.UI.OpenUI(uiFormID);

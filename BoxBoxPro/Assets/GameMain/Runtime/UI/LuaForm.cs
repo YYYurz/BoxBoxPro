@@ -22,8 +22,7 @@ namespace BB
                 return;
             }
             
-            uiName = Name;
-            uiName = Name.Replace("(Clone)", "");
+            Name = Name.Replace("(Clone)", "");
 
             luaScriptTable = GameEntry.Lua.DoStringCustom( formDataInfo.LuaFile);
             if (luaScriptTable != null)

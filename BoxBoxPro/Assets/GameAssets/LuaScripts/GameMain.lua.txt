@@ -1,11 +1,12 @@
----LuaDebugger
-package.cpath = package.cpath .. ';D:/Study/UnityProject/BoxBoxPro/BoxBoxPro/EmmyLuaDebugger/?.dll'
-print(package.cpath)
-local dbg = require('emmy_core')
-dbg.tcpListen('localhost', 9966)
-
 -- 全局模块
 require "Global"
+
+---LuaDebugger
+if LuaUIHelper.IsEditor() then
+	package.cpath = package.cpath .. ';D:/Study/UnityProject/BoxBoxPro/BoxBoxPro/EmmyLuaDebugger/?.dll'
+	local dbg = require('emmy_core')
+	dbg.tcpListen('localhost', 9966)
+end
 
 -- 定义为全局模块，整个lua程序的入口类
 GameMain = {}
@@ -19,7 +20,7 @@ end
 --- 加载全局Logic模块
 function GameMain:RequireLogic()
 	local logicPath = {
-		
+		"Logic/Login/LoginLogic",
 	}
 	for _, v in ipairs(logicPath) do
 		require(v)
@@ -32,13 +33,3 @@ function GameMain:OnApplicationQuit()
 end
 
 GameMain:Start()
-
-local LoginWindow = {}
-
-LoginWindow.a = 1
-
-function LoginWindow:Func()
-	print("LoginWindow Func : " .. self.a)
-end
-
-return LoginWindow
