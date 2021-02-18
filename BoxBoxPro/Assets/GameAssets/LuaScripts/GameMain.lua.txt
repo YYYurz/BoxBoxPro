@@ -21,6 +21,7 @@ end
 function GameMain:RequireLogic()
 	local logicPath = {
 		"Logic/Login/LoginLogic",
+		
 	}
 	for _, v in ipairs(logicPath) do
 		require(v)
