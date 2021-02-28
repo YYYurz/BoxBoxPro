@@ -1,6 +1,7 @@
 ﻿using GameFramework.Fsm;
 using GameFramework.Procedure;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 namespace BB
 {
@@ -9,9 +10,11 @@ namespace BB
     {
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
+            Log.Debug("ProcedureMain OnEnter");
+            Debug.Log("Enter Main Yeah");
+
             GameEntry.UI.OpenUI(Constant.UIFormID.LoginWindow);
             GameEntry.Entity.ShowSoldier();
-            Debug.Log("Enter Main Yeah");
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)

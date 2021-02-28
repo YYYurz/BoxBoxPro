@@ -12,6 +12,9 @@ namespace BB
     {
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
+            base.OnEnter(procedureOwner);
+            Log.Debug("ProcedureLaunch OnEnter");
+
             // 初始化语言
             InitLanguageSettings();
         }

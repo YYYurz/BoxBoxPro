@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BB
 {
@@ -19,10 +20,12 @@ namespace BB
 
         public static UIFormOpenDataInfo Create(int id, string strLuaFile, object userData)
         {
-            UIFormOpenDataInfo uiFormOpenInfo = ReferencePool.Acquire<UIFormOpenDataInfo>();
+            var uiFormOpenInfo = ReferencePool.Acquire<UIFormOpenDataInfo>();
             uiFormOpenInfo.FormID = id;
             uiFormOpenInfo.LuaFile = strLuaFile;
             uiFormOpenInfo.UserData = userData;
+            
+            Button a = new Button();
 
             return uiFormOpenInfo;
         }

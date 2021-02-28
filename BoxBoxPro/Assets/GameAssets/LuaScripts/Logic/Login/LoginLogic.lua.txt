@@ -1,8 +1,8 @@
 ﻿local LogicBase = require "Logic/LogicBase"
 
----@class LoginLogic : UIBase 加载界面
+---@class LoginLogic : LogicBase 加载界面
 LoginLogic = LogicBase:New()
 
 function LoginLogic:Fire()
-    self:NotifyEvent(UIEventID.EventTest)
+    self:FireEvent(UIEventID.EVENT_Test)
 end 

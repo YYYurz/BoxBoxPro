@@ -62,7 +62,9 @@
 	</assembly>
 
 	<assembly fullname="Assembly-CSharp">
-	    <type fullname="Tutorial.BaseClass" preserve="all"/>
+	    <type fullname="LuaCSharpEventArgs" preserve="all"/>
+		<type fullname="BB.PreloadProgressLoadingEventArgs" preserve="all"/>
+		<type fullname="Tutorial.BaseClass" preserve="all"/>
 		<type fullname="Tutorial.TestEnum" preserve="all"/>
 		<type fullname="Tutorial.DerivedClass" preserve="all"/>
 		<type fullname="Tutorial.ICalc" preserve="all"/>

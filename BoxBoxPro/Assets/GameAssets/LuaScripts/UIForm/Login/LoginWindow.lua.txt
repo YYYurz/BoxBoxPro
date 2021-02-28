@@ -1,5 +1,4 @@
 ﻿local UIBase = require "UIForm/UIBase"
-local logic = LoginLogic
 
 ---@class LoginWindow : UIBase 登录界面
 local LoginWindow = UIBase:New()
@@ -9,36 +8,30 @@ function LoginWindow:ManualInit()
 
 	self:AddListener(self.BtnPlay.onClick, self.OnLogin)
 	
-	self:AddEventListener(UIEventID.EventTest, self.OnCallBack)
+	self:AddEventListener(UIEventID.EVENT_Test, self.OnCallBack)
 end
 
 function LoginWindow:OnCreate()
-	UIBase:OnCreate()
+	UIBase.OnCreate(self)
 	self:ManualInit()
 end
 
 function LoginWindow:OnOpen()
-	UIBase:OnOpen()
+	UIBase.OnOpen(self)
 end
 
 function LoginWindow:OnClose()
-	UIBase:OnClose()
+	UIBase.OnClose(self)
 end
 
 function LoginWindow:OnDestroy()
-	UIBase:OnDestroy()
+	UIBase.OnDestroy(self)
 	self = nil
 	LoginWindow = nil
 end
 
 function LoginWindow:OnLogin()
-	print("OnClickLogin")
-	--CF:CloseWindow(UIFormID.LoginWindow)
-	logic:Fire()
-end
-
-function LoginWindow:OnCallBack()
-	print("Yeah")
+	self:CloseUI()
 end
 
 return LoginWindow

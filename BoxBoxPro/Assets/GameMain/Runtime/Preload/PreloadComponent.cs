@@ -14,7 +14,7 @@ namespace BB
         /// 资源加载完成的标志位
         /// </summary>
         private readonly Dictionary<string, PreloadAssetInfo> mDicLoadingAssetInfo = new Dictionary<string, PreloadAssetInfo>();
-        private readonly  Dictionary<int, PreloadAssetInfo> mDicUiAssetInfoSerialId = new Dictionary<int, PreloadAssetInfo>();
+        private readonly  Dictionary<int, PreloadAssetInfo> dicUiAssetInfoSerialId = new Dictionary<int, PreloadAssetInfo>();
 
         private int mLoadedAssetCount = 0;
         
@@ -37,14 +37,6 @@ namespace BB
         /// 缓存ResourceExpireTime
         /// </summary>
         private float mCacheResourceExpireTime = 0;
-
-
-        private const int CheckResTypeAssetPath = 1;
-        private const int CheckResTypeSerialId = 2;
-
-        private void Start()
-        {
-        }
 
         private void Update()
         {
@@ -87,7 +79,7 @@ namespace BB
         public void ResetAssetPreloadInfo()
         {
             mDicLoadingAssetInfo.Clear();
-            mDicUiAssetInfoSerialId.Clear();
+            dicUiAssetInfoSerialId.Clear();
             mLoadedAssetCount = 0;
         }
 
@@ -158,6 +150,11 @@ namespace BB
         private void OneAssetLoadSuccess(string strAssetName, int nSerialID = -1)
         {
             ++mLoadedAssetCount;
+            mDicLoadingAssetInfo.Remove(strAssetName);
+            if (mLoadedAssetCount >= 56)
+            {
+                Log.Debug($"OneAssetLoadOver all{mDicLoadingAssetInfo.Count} now{mLoadedAssetCount}");
+            }
 
             OnLoadAssetProgress();
 
@@ -185,7 +182,7 @@ namespace BB
         private bool CheckUIFormAssetLoaded(int nSerial)
         {
             PreloadAssetInfo preAssetInfo;
-            if (mDicUiAssetInfoSerialId.TryGetValue(nSerial, out preAssetInfo))
+            if (dicUiAssetInfoSerialId.TryGetValue(nSerial, out preAssetInfo))
             {
                 preAssetInfo.AssetPreloadStatus = GameEnum.PRELOAD_ASSET_STATUS.Loaded;
             }

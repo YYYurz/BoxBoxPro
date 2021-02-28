@@ -60,6 +60,8 @@ namespace BB
 
         private void OnDestroy()
         {
+            Log.Debug("LuaComponent Dispose");
+
             CacheLuaDict.Clear();
             // if (_luaUpdater != null)
             // {
@@ -70,6 +72,8 @@ namespace BB
             {
                 return;
             }
+
+            Log.Debug("LuaComponent Dispose");
             _luaEnv.Dispose();
             _luaEnv = null;
         }
@@ -337,7 +341,6 @@ namespace BB
             var textAsset = (TextAsset)asset;
             CacheLuaDict.Add(luaName, textAsset.text);
             _eventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName, luaName, textAsset.text, duration));
-            Log.Debug($"OnLoadLuaAssetSuccess {assetName}");
         }
 
         private void OnLoadLuaAssetFailure(string assetName, string dependencyAssetName, int loadedCount, int totalCount, object userData)

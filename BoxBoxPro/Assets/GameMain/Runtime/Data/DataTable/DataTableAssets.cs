@@ -7,43 +7,24 @@ namespace BB
 {
     public class DataTableAssets
     {
-        private Dictionary<Type, ITableReader> mDicDataTableReaders = new Dictionary<Type, ITableReader>();
-
-        public Dictionary<Type, ITableReader> DicDataTableReaders
-		{
-			get
-			{
-				return mDicDataTableReaders;
-			}
-		}
+        private readonly Dictionary<Type, ITableReader> dicDataTableReaders = new Dictionary<Type, ITableReader>();
 
         public void ParseDataTable(object asset, ParseConfigDataInfo parseConfigDataInfo)
         {
             var textAsset = asset as TextAsset;
             var tableReader = parseConfigDataInfo.UserData as ITableReader;
-            tableReader.LoadDataFile(textAsset.bytes);
-            mDicDataTableReaders[parseConfigDataInfo.ConfigClassType] = tableReader;
+            if (textAsset != null) tableReader?.LoadDataFile(textAsset.bytes);
+            dicDataTableReaders[parseConfigDataInfo.ConfigClassType] = tableReader;
         }
 
         public T GetDataTableReader<T>()
         {
-            ITableReader tableReader;
-            if (mDicDataTableReaders.TryGetValue(typeof(T), out tableReader))
+            if (dicDataTableReaders.TryGetValue(typeof(T), out var tableReader))
             {
                 return (T)tableReader;
             }
 
             return default;
-        }
-
-        public bool IsDataTableLoaded<T>()
-        {
-            if (mDicDataTableReaders.ContainsKey(typeof(T)))
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }

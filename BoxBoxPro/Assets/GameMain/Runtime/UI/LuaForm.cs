@@ -25,8 +25,10 @@ namespace BB
             Name = Name.Replace("(Clone)", "");
 
             luaScriptTable = GameEntry.Lua.DoStringCustom( formDataInfo.LuaFile);
+            // ReSharper disable once InvertIf
             if (luaScriptTable != null)
             {
+                luaScriptTable.Set("uiFormID", formDataInfo.FormID);
                 luaScriptTable.Set("transform", transform);
                 luaScriptTable.Set("gameObject", gameObject);
                 GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnCreate");

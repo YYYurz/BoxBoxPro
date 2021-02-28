@@ -1,6 +1,6 @@
 ---@class eventID 事件ID
 local eventID = {
-	EventTest = 1,
+	EVENT_Test = 1,
 }
 
 return eventID

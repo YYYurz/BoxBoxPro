@@ -14,6 +14,8 @@ namespace BB
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
+            Log.Debug("ProcedurePreload OnEnter");
+            
             GameEntry.Event.Subscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
             GameEntry.Event.Subscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
             GameEntry.Event.Subscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFormFailure);
@@ -63,6 +65,7 @@ namespace BB
         
         private void OnAllAssetsLoadedComplete(object sender, GameEventArgs e)
         {
+            Log.Debug("ProcedurePreload : All Assets Preload Over");
             GameEntry.Lua.InitLuaEnvExternalInterface();
             GameEntry.Lua.InitLuaCommonScript();
             GameEntry.Lua.StartRunLuaLogic();

@@ -5,8 +5,8 @@ local UIBase = require "UIForm/UIBase"
 local LogicBase = luaBehaviour:New()
 
 --- 发送UI事件
-function LogicBase:FireEvent(eventID, param)
-    UIBase:NotifyEvent(eventID, param)
+function LogicBase:FireEvent(eventID, ...)
+    UIBase:NotifyEvent(eventID, ...)
 end
 
 return LogicBase
