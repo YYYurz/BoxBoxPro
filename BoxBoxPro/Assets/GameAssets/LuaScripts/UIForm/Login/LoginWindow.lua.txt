@@ -6,7 +6,7 @@ local LoginWindow = UIBase:New()
 function LoginWindow:ManualInit()
 	self.BtnPlay = self:GetButton(self.gameObject, "BtnPlay")
 
-	self:AddListener(self.BtnPlay.onClick, self.OnLogin)
+	self:AddListener(self.BtnPlay.onClick, function() self:OnLogin() end)
 	
 	self:AddEventListener(UIEventID.EVENT_Test, self.OnCallBack)
 end

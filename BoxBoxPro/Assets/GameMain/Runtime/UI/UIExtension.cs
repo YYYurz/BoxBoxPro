@@ -1,10 +1,15 @@
-﻿using GameConfig;
+﻿using System;
+using GameConfig;
+using UnityEngine.UI;
 using UnityGameFramework.Runtime;
+using XLua;
 
 namespace BB
 {
     public static class UIExtension
     {
+        
+        
         public static bool IsUIOpen(this UIComponent uiComponent, int uiFormId)
         {
             var assetName = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTUIWindowTableReader>().GetInfo((uint)uiFormId).AssetPath;
@@ -44,35 +49,11 @@ namespace BB
             return uiComponent.OpenUIForm(strAssetPath, uiFormDataTable.Value.UIGroupName, Constant.AssetPriority.UIFormAsset, (uiFormDataTable.Value.PauseCoveredUIForm == 1), uiFormOpenDataInfo);
         }
 
-        // public static int? ShowUITips(this UIComponent uiComponent, string strTips)
-        // {
-        //
-        //     DTUIFormData? uiFormDataTable = GameEntry.GameData.DataTableInfo.GetDataTableReader<DTUIFormDataTableReader>().GetInfo((uint)Constant.UIFormID.UITipsForm);
-        //     if (uiFormDataTable == null)
-        //     {
-        //         Log.Error("LuaForm Open Error! invalid UIDataTable!!! FormID : {0}", Constant.UIFormID.UITipsForm);
-        //         return default;
-        //     }
-        //     string strAssetPath = AssetUtility.GetUIFormAsset(uiFormDataTable.Value.AssetPath);
-        //
-        //     if (uiComponent.IsLoadingUIForm(strAssetPath))
-        //     {
-        //         return null;
-        //     }
-        //
-        //     if (uiComponent.HasUIForm(strAssetPath))
-        //     {
-        //         UIFormOpenDataInfo uiFormOpenDataInfoTips = UIFormOpenDataInfo.Create(Constant.UIFormID.UITipsForm, uiFormDataTable.Value.LuaFile, strTips);
-        //         uiComponent.GetUIForm(strAssetPath).OnOpen(uiFormOpenDataInfoTips);
-        //         GameFramework.ReferencePool.Release(uiFormOpenDataInfoTips);
-        //         return null;
-        //     }
-        //
-        //     UIFormOpenDataInfo uiFormOpenDataInfo = UIFormOpenDataInfo.Create(Constant.UIFormID.UITipsForm, uiFormDataTable.Value.LuaFile, strTips);
-        //     return uiComponent.OpenUIForm(strAssetPath, uiFormDataTable.Value.UIGroupName, Constant.AssetPriority.UIFormAsset, (uiFormDataTable.Value.PauseCoveredUIForm == 1), uiFormOpenDataInfo);
-        // }
-        //
-        
+        public static void AddButtonClickListener(Button button, Action<LuaTable> callBack, LuaTable self)
+        {
+            
+        }
+
         public static void CloseAllUIForms(this UIComponent uiComponent)
         {
             uiComponent.CloseAllLoadedUIForms();

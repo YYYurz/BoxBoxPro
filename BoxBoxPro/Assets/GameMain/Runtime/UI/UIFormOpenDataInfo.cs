@@ -25,8 +25,6 @@ namespace BB
             uiFormOpenInfo.LuaFile = strLuaFile;
             uiFormOpenInfo.UserData = userData;
             
-            Button a = new Button();
-
             return uiFormOpenInfo;
         }
 

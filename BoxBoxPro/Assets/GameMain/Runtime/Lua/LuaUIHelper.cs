@@ -1,8 +1,8 @@
-﻿
-
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
+using XLua;
 
 namespace BB
 {
@@ -18,6 +18,31 @@ namespace BB
         public static void OpenWindow(int uiFormID) => GameEntry.UI.OpenUI(uiFormID);
 
         public static void CloseWindow(int uiFormID) => GameEntry.UI.CloseUI(uiFormID);
+
+        public static void AddButtonClickListener(Button button, Action<LuaTable> callBack, LuaTable tableSelf)
+        {
+            if (callBack == null)
+            {
+                Log.Debug($"LuaUIHelper : Button Listener Callback = null");
+                return;
+            }
+            button.onClick.AddListener(() =>
+            {
+                callBack.Invoke(tableSelf);
+            });
+        }
+
+        public static void RemoveButtonClickListener(Button button)
+        {
+            if (button == null)
+            {
+                Log.Debug($"LuaUIHelper : Remove Button Click false");
+                return;
+            }
+            button.onClick.RemoveAllListeners();
+        }
+        
+        // public static void AddButton
         
         private static T GetChild<T>(GameObject selfObj, string path)
         {
