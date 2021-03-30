@@ -2,41 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
-using GameFramework.Resource;
 
 namespace BB
 {
     [DisallowMultipleComponent]
     public class PreloadComponent : GameFrameworkComponent
     {
-
         /// <summary>
         /// 资源加载完成的标志位
         /// </summary>
         private readonly Dictionary<string, PreloadAssetInfo> mDicLoadingAssetInfo = new Dictionary<string, PreloadAssetInfo>();
-        private readonly  Dictionary<int, PreloadAssetInfo> dicUiAssetInfoSerialId = new Dictionary<int, PreloadAssetInfo>();
 
-        private int mLoadedAssetCount = 0;
+        private int loadedAssetCount;
+        private int allNeedLoadAssetCount;
         
         /// <summary>
         /// 是否开启了释放资源
         /// </summary>
-        private bool mStartUnloadResource = false;
+        private bool mStartUnloadResource;
 
         /// <summary>
         /// 释放资源进行到第几步了
         /// </summary>
-        private int mUnloadResourceSteps = 0;
+        private int mUnloadResourceSteps;
 
         /// <summary>
         /// 缓存AssetExpireTime
         /// </summary>
-        private float mCacheAssetExpireTime = 0;
+        private float mCacheAssetExpireTime;
 
         /// <summary>
         /// 缓存ResourceExpireTime
         /// </summary>
-        private float mCacheResourceExpireTime = 0;
+        private float mCacheResourceExpireTime;
 
         private void Update()
         {
@@ -76,18 +74,18 @@ namespace BB
             return mDicLoadingAssetInfo.Count;
         }
 
-        public void ResetAssetPreloadInfo()
+        private void ResetAssetPreloadInfo()
         {
             mDicLoadingAssetInfo.Clear();
-            dicUiAssetInfoSerialId.Clear();
-            mLoadedAssetCount = 0;
+            loadedAssetCount = 0;
+            allNeedLoadAssetCount = 0;
         }
 
         public void StartPreloadAsset()
         {
             AddEvent();
-
-            GameEntry.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(0, mDicLoadingAssetInfo.Count));
+            allNeedLoadAssetCount = mDicLoadingAssetInfo.Count;
+            GameEntry.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(0, allNeedLoadAssetCount));
 
             foreach (var iteAssetInfo in mDicLoadingAssetInfo)
             {
@@ -112,12 +110,6 @@ namespace BB
                     //         GameEntry.Localization.LoadDictionary(tupUserData.Item1, iteAssetInfo.Value.AssetPath, tupUserData.Item2);
                     //     }
                     //     break;
-                    // case GameEnum.GAMEASSET_TYPE.PAT_UIFORM:
-                    //     {
-                    //         int nSerialID = (int)GameEntry.UI.OpenUIForm(iteAssetInfo.Value.UIFormID, iteAssetInfo.Value.UserData);
-                    //         mDicUIAssetInfoSerialID[nSerialID] = iteAssetInfo.Value;
-                    //     }
-                    //     break;
                     // case GameEnum.GAMEASSET_TYPE.PAT_PREFAB:
                     //     {
                     //         LoadAssetCallbacks callbacks = new LoadAssetCallbacks(OnPreLoadPrefabSuccess, OnPreLoadPrefabFailed);
@@ -134,7 +126,6 @@ namespace BB
             GameEntry.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
             GameEntry.Event.Subscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
             GameEntry.Event.Subscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
-            GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnLoadUIFormSuccess);
 
         }
 
@@ -144,18 +135,12 @@ namespace BB
             GameEntry.Event.Unsubscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
             GameEntry.Event.Unsubscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
             GameEntry.Event.Unsubscribe(LoadCustomDataSuccessEventArgs.EventId, OnLoadCustomDataSuccess);
-            GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnLoadUIFormSuccess);
         }
 
-        private void OneAssetLoadSuccess(string strAssetName, int nSerialID = -1)
+        private void OneAssetLoadSuccess(string strAssetName)
         {
-            ++mLoadedAssetCount;
+            ++loadedAssetCount;
             mDicLoadingAssetInfo.Remove(strAssetName);
-            if (mLoadedAssetCount >= 56)
-            {
-                Log.Debug($"OneAssetLoadOver all{mDicLoadingAssetInfo.Count} now{mLoadedAssetCount}");
-            }
-
             OnLoadAssetProgress();
 
             if (CheckAllAssetsLoaded())
@@ -179,24 +164,9 @@ namespace BB
             return true;
         }
 
-        private bool CheckUIFormAssetLoaded(int nSerial)
-        {
-            PreloadAssetInfo preAssetInfo;
-            if (dicUiAssetInfoSerialId.TryGetValue(nSerial, out preAssetInfo))
-            {
-                preAssetInfo.AssetPreloadStatus = GameEnum.PRELOAD_ASSET_STATUS.Loaded;
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         private void OnLoadConfigSuccess(object sender, GameEventArgs e)
         {
-            LoadConfigSuccessEventArgs args = (LoadConfigSuccessEventArgs)e;
+            var args = (LoadConfigSuccessEventArgs)e;
             //Log.Debug("PreloadComponent Load config '{0}' OK.", args.ConfigName);
             if (CheckNormalAssetLoaded(args.ConfigAssetName))
             {
@@ -206,7 +176,7 @@ namespace BB
 
         private void OnLoadDictionarySuccess(object sender, GameEventArgs e)
         {
-            LoadDictionarySuccessEventArgs args = (LoadDictionarySuccessEventArgs)e;
+            var args = (LoadDictionarySuccessEventArgs)e;
             //Log.Debug("PreloadComponent Load Dictionary '{0}' OK.", args.ConfigName);
             if (CheckNormalAssetLoaded(args.DictionaryAssetName))
             {
@@ -216,7 +186,7 @@ namespace BB
 
         private void OnLoadLuaSuccess(object sender, GameEventArgs e)
         {
-            LoadLuaSuccessEventArgs args = (LoadLuaSuccessEventArgs)e;
+            var args = (LoadLuaSuccessEventArgs)e;
             if (CheckNormalAssetLoaded(args.AssetName))
             {
                 OneAssetLoadSuccess(args.AssetName);
@@ -225,62 +195,41 @@ namespace BB
 
         private void OnLoadCustomDataSuccess(object sender, GameEventArgs e)
         {
-            LoadCustomDataSuccessEventArgs args = e as LoadCustomDataSuccessEventArgs;
+            if (!(e is LoadCustomDataSuccessEventArgs args))
+            {
+                return;
+            }
             if (CheckNormalAssetLoaded(args.DataName))
             {
                 OneAssetLoadSuccess(args.DataName);
             }
         }
-
-        private void OnLoadUIFormSuccess(object sender, GameEventArgs e)
-        {
-            OpenUIFormSuccessEventArgs args = e as OpenUIFormSuccessEventArgs;
-            if (CheckUIFormAssetLoaded(args.UIForm.SerialId))
-            {
-                OneAssetLoadSuccess(null, args.UIForm.SerialId);
-            }
-        }
-
-        private void OnPreLoadPrefabSuccess(string assetName, object asset, float duration, object userData)
-        {
-            if (CheckNormalAssetLoaded(assetName))
-            {
-                OneAssetLoadSuccess(assetName);
-            }
-        }
-
-        private void OnPreLoadPrefabFailed(string assetName, LoadResourceStatus status, string errorMessage, object userData)
-        {
-            //todo 错误处理
-            Log.Error($"preload pefab error {assetName}, {errorMessage}");
-        }
-
+        
         private void OnLoadAssetComplete()
         {
             Log.Debug("PreloadComponent LoadAssetProgress load asset complete!");
             GameEntry.Event.Fire(this, PreloadProgressCompleteEventArgs.Create());
-            GameEntry.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(mDicLoadingAssetInfo.Count, mDicLoadingAssetInfo.Count));
+            GameEntry.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(mDicLoadingAssetInfo.Count, allNeedLoadAssetCount));
             RemoveEvent();
+            ResetAssetPreloadInfo();
         }
 
         private void OnLoadAssetProgress()
         {
-            GameEntry.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(mLoadedAssetCount, mDicLoadingAssetInfo.Count));
+            GameEntry.Event.Fire(this, PreloadProgressLoadingEventArgs.Create(loadedAssetCount, allNeedLoadAssetCount));
         }
-
-
 
         private bool CheckAllAssetsLoaded()
         {
             IEnumerator<PreloadAssetInfo> iter = mDicLoadingAssetInfo.Values.GetEnumerator();
             while (iter.MoveNext())
             {
-                if (iter.Current.AssetPreloadStatus != GameEnum.PRELOAD_ASSET_STATUS.Loaded)
+                if (iter.Current != null && iter.Current.AssetPreloadStatus != GameEnum.PRELOAD_ASSET_STATUS.Loaded)
                 {
                     return false;
                 }
             }
-
+            iter.Dispose();
             return true;
         }
     }

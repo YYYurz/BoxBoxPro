@@ -8,12 +8,12 @@
 {"luaName":"Common/EventID","assetName":"Assets/GameAssets/LuaScripts/Common/EventID.lua.txt"}
 {"luaName":"Common/LuaBehaviour","assetName":"Assets/GameAssets/LuaScripts/Common/LuaBehaviour.lua.txt"}
 {"luaName":"Common/TableReader","assetName":"Assets/GameAssets/LuaScripts/Common/TableReader.lua.txt"}
+{"luaName":"Common/util","assetName":"Assets/GameAssets/LuaScripts/Common/util.lua.txt"}
 {"luaName":"Data/BBConstantUIFormID","assetName":"Assets/GameAssets/LuaScripts/Data/BBConstantUIFormID.lua.txt"}
 {"luaName":"Framework/Common/Messenger","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/Messenger.lua.txt"}
 {"luaName":"Framework/Common/Singleton","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/Singleton.lua.txt"}
 {"luaName":"Framework/Common/Updatable","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/Updatable.lua.txt"}
 {"luaName":"Framework/Common/UpdatableSingleton","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/UpdatableSingleton.lua.txt"}
-{"luaName":"Framework/Common/util","assetName":"Assets/GameAssets/LuaScripts/Framework/Common/util.lua.txt"}
 {"luaName":"Framework/Logger/Logger","assetName":"Assets/GameAssets/LuaScripts/Framework/Logger/Logger.lua.txt"}
 {"luaName":"Framework/LuaCSharpData/LuaCSharpArr","assetName":"Assets/GameAssets/LuaScripts/Framework/LuaCSharpData/LuaCSharpArr.lua.txt"}
 {"luaName":"Framework/LuaCSharpData/LuaCSharpDataHelper","assetName":"Assets/GameAssets/LuaScripts/Framework/LuaCSharpData/LuaCSharpDataHelper.lua.txt"}

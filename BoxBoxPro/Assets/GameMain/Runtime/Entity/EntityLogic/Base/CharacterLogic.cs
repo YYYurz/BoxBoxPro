@@ -67,13 +67,13 @@ namespace BB
 
             if (e.InputType != GameEnum.INPUT_TYPE.Move)
                 return;
+            Log.Debug($"Input {e.OffsetX}  {e.OffsetY}");
             if (e.OffsetX.Equals(0f) && e.OffsetY.Equals(0f))
             {
                 animator.SetFloat("walk", 0f);
                 return;
             }
-
-            Debug.Log("OninputEvent: " + e.OffsetX + e.OffsetY);
+ 
             if (e.OffsetX > 0)
                 rotationY = Mathf.Acos(e.OffsetY / Mathf.Sqrt(e.OffsetX * e.OffsetX + e.OffsetY * e.OffsetY)) * 180 /
                             Mathf.PI;

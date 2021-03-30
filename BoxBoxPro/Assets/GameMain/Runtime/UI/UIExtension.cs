@@ -8,8 +8,6 @@ namespace BB
 {
     public static class UIExtension
     {
-        
-        
         public static bool IsUIOpen(this UIComponent uiComponent, int uiFormId)
         {
             var assetName = GameEntry.TableData.DataTableInfo.GetDataTableReader<DTUIWindowTableReader>().GetInfo((uint)uiFormId).AssetPath;

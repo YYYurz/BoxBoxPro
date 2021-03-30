@@ -10,13 +10,11 @@ namespace BB
 {
     public class ProcedureChangeScene : ProcedureBase
     {
-        private const int MenuSceneId = 1;
-
-        private bool isChangeSceneComplete = false;
+        private bool isChangeSceneComplete;
         private int backgroundMusicId;
         private int _sceneId;
 
-        private GameObject m_SceneObj = null;
+        private GameObject m_SceneObj;
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
@@ -78,7 +76,7 @@ namespace BB
             switch (_sceneId)
             {
                 case (int)GameEnum.SCENE_TYPE.MainLobby:
-                    ChangeState<ProcedureMain>(procedureOwner);
+                    ChangeState<ProcedureLobby>(procedureOwner);
                     break;
             }
         }

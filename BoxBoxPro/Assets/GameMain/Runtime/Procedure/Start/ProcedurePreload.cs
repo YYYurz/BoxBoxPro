@@ -9,18 +9,25 @@ namespace BB
 {
     public class ProcedurePreload : ProcedureBase
     {
-        private bool _allAssetLoadedComplete;
+        private StartWindow startWindowScript; 
+            
+        private bool allAssetLoadedComplete;
         
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
             Log.Debug("ProcedurePreload OnEnter");
+
+            var uiRoot = GameEntry.UI.GetUIRootTransform();
+            var startWindow = StartWindow.CreateStartWindow(uiRoot);
+            startWindowScript = startWindow.GetComponent<StartWindow>();
             
             GameEntry.Event.Subscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
             GameEntry.Event.Subscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
             GameEntry.Event.Subscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFormFailure);
-            _allAssetLoadedComplete = false;
+            GameEntry.Event.Subscribe(PreloadProgressLoadingEventArgs.EventId, OnPreloadProgress);
             
+            allAssetLoadedComplete = false;
             GameEntry.Lua.LoadLuaFilesConfig();
         }
 
@@ -30,13 +37,17 @@ namespace BB
             GameEntry.Event.Unsubscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfigSuccess);
             GameEntry.Event.Unsubscribe(PreloadProgressCompleteEventArgs.EventId, OnAllAssetsLoadedComplete);
             GameEntry.Event.Unsubscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFormFailure);
+            GameEntry.Event.Unsubscribe(PreloadProgressLoadingEventArgs.EventId, OnPreloadProgress);
+
+            startWindowScript.DestroySelf();
+            startWindowScript = null;
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             
-            if (!_allAssetLoadedComplete)
+            if (!allAssetLoadedComplete)
             {
                 return;
             }
@@ -69,7 +80,17 @@ namespace BB
             GameEntry.Lua.InitLuaEnvExternalInterface();
             GameEntry.Lua.InitLuaCommonScript();
             GameEntry.Lua.StartRunLuaLogic();
-            _allAssetLoadedComplete = true;
+            allAssetLoadedComplete = true;
+        }
+
+        private void OnPreloadProgress(object sender, GameEventArgs e)
+        {
+            if (!(e is PreloadProgressLoadingEventArgs args))
+            {
+                Log.Error("ProcedurePreload : PreloadProgressLoadingEventArgs is null");
+                return;
+            }
+            startWindowScript.SetSliderProgress(args.LoadedAssetsCount / args.TotalAssetsCount);
         }
 
         private void OnOpenUIFormFailure(object sender, GameEventArgs e)

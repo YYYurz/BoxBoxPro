@@ -30,4 +30,17 @@ function LuaBehaviour:GetSlider(obj, path)
 	return LuaUIHelper.GetSlider(obj, path)
 end
 
+-- 绑定函数
+local function Bind(func, obj, ...)
+	local parms = {...}
+	return function(...)
+		local par = {...}
+		if obj ~= nil then
+			func(obj, table.unpack(ConcatTable(parms, par)))
+		else
+			func(table.unpack(ConcatTable(parms, par)))
+		end
+	end
+end
+
 return LuaBehaviour

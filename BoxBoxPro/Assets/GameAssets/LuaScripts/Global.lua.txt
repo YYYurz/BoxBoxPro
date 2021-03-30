@@ -5,6 +5,7 @@ LuaUIHelper = CS.BB.LuaUIHelper
 -------------------------------------------------------
 
 ------------------------- Lua -------------------------
+Utils = require "Common.util"
 UIBase = require "UIForm.UIBase"
 UIFormID = require "Data.BBConstantUIFormID"
 CF = require "Common.CommonFunction"

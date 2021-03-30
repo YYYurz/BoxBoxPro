@@ -144,7 +144,7 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        /// <summary>
+        /// <summary>1
         /// 游戏框架组件初始化。
         /// </summary>
         protected override void Awake()
@@ -321,6 +321,8 @@ namespace UnityGameFramework.Runtime
 
             return m_UIManager.AddUIGroup(uiGroupName, depth, uiGroupHelper);
         }
+
+        public Transform GetUIRootTransform() => m_InstanceRoot;
 
         /// <summary>
         /// 是否存在界面。
