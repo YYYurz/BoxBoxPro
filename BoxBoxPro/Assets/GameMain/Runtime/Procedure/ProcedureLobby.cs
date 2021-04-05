@@ -19,6 +19,7 @@ namespace BB
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
+            
         }
 
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)

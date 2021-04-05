@@ -90,7 +90,8 @@ namespace BB
                 Log.Error("ProcedurePreload : PreloadProgressLoadingEventArgs is null");
                 return;
             }
-            startWindowScript.SetSliderProgress(args.LoadedAssetsCount / args.TotalAssetsCount);
+            Log.Debug("asd" + args.TotalAssetsCount);
+            startWindowScript.SetSliderProgress((float)args.LoadedAssetsCount / args.TotalAssetsCount);
         }
 
         private void OnOpenUIFormFailure(object sender, GameEventArgs e)

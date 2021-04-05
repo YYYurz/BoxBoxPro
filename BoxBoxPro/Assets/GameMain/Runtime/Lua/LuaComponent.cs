@@ -226,10 +226,6 @@ namespace BB
         /// <summary>
         /// 获取全局类的LuaTable
         /// </summary>
-        /// <param name="luaName"></param>
-        /// <param name="className"></param>
-        /// <param name="?"></param>
-        /// <returns></returns>
         public LuaTable GetClassLuaTable(string className)
         {
             var classLuaTable = _luaEnv.Global.Get<LuaTable>(className);
@@ -239,16 +235,12 @@ namespace BB
         /// <summary>
         /// 获取LuaTable
         /// </summary>
-        /// <param name="luaName"></param>
-        /// <param name="className"></param>
-        /// <param name="tableName"></param>
-        /// <returns></returns>
         public LuaTable GetLuaTable(string luaName, string className, string tableName)
         {
             if (CacheLuaDict.ContainsKey(luaName))
             {
-                LuaTable classLuaTable = _luaEnv.Global.Get<LuaTable>(className);
-                LuaTable luaTable = classLuaTable.Get<LuaTable>(tableName);
+                var classLuaTable = _luaEnv.Global.Get<LuaTable>(className);
+                var luaTable = classLuaTable.Get<LuaTable>(tableName);
                 classLuaTable.Dispose();
                 return luaTable;
             }
@@ -256,18 +248,14 @@ namespace BB
             return null;
         }
 
-        /// <summary>
-        /// 调用Lua方法
-        /// </summary>
-        /// <param name="funcName"></param>
         public void CallLuaFunction(LuaTable luaTable, string funcName, params object[] param)
         {
             if (luaTable != null)
             {
                 try
                 {
-                    LuaFunction luaFunction = luaTable.Get<LuaFunction>(funcName);
-                    luaFunction.Call(luaTable, param);
+                    var luaFunction = luaTable.Get<LuaFunction>(funcName);
+                    luaFunction.Call(param, null);
                     luaFunction.Dispose();
                 }
                 catch (Exception exception)
@@ -281,21 +269,39 @@ namespace BB
             }
         }
 
-        /// <summary>
-        /// 调用Lua方法
-        /// </summary>
-        /// <param name="luaName"></param>
-        /// <param name="className"></param>
-        /// <param name="funcName"></param>
-        /// <param name="parms"></param>
+        public LuaTable CallLuaFunctionCustom(LuaTable luaTable, string funcName, params object[] param)
+        {
+            if (luaTable != null)
+            {
+                try
+                {
+                    var luaFunction = luaTable.Get<LuaFunction>(funcName);
+                    var types = new[] {typeof(LuaTable)};
+                    var result = luaFunction.Call(param, types);
+                    luaFunction.Dispose();
+                    return (LuaTable) result[0];
+                }
+                catch (Exception exception)
+                {
+                    Log.Error(exception.Message);
+                }
+            }
+            else
+            {
+                Log.Error("LuaTable is invalid.");
+            }
+            
+            return null;
+        }
+
         public void CallLuaFunction(string luaName, string className, string funcName, params object[] parms)
         {
             if (CacheLuaDict.ContainsKey(luaName))
             {
                 try
                 {
-                    LuaTable classLuaTable = _luaEnv.Global.Get<LuaTable>(className);
-                    LuaFunction luaFunc = classLuaTable.Get<LuaFunction>(funcName);
+                    var classLuaTable = _luaEnv.Global.Get<LuaTable>(className);
+                    var luaFunc = classLuaTable.Get<LuaFunction>(funcName);
                     luaFunc.Call(parms);
                     classLuaTable.Dispose();
                     luaFunc.Dispose();

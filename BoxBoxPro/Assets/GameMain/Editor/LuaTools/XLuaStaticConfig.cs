@@ -134,10 +134,10 @@ namespace BB.Editor
 
             #region system
 
-            typeof(System.EventHandler<GameFramework.Event.GameEventArgs>),
-            typeof(System.Action<int, byte[]>),
-            typeof(System.Action<int>),
-            typeof(System.Action<float, float>),
+            typeof(EventHandler<GameFramework.Event.GameEventArgs>),
+            typeof(Action<int, byte[]>),
+            typeof(Action<int>),
+            typeof(Action<float, float>),
 
             #endregion
 

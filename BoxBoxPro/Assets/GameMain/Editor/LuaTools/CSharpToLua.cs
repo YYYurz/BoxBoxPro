@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -9,7 +11,7 @@ namespace BB.Editor
 {
     public class CSharpToLua
     {
-        private List<Type> listTypes = new List<Type>() {
+        private readonly List<Type> listTypes = new List<Type>() {
             // typeof(Constant.Game),
             // typeof(Constant.SpecialGameData),
             // typeof(Constant.Item),
@@ -36,7 +38,7 @@ namespace BB.Editor
         public CSharpToLua()
         {
             rootPath = Path.Combine(Application.dataPath, "GameAssets", "LuaScripts", "Data");
-            DirectoryInfo dirs = new DirectoryInfo(rootPath);
+            var dirs = new DirectoryInfo(rootPath);
             if (!dirs.Exists)
             {
                 dirs.Create();
@@ -45,9 +47,11 @@ namespace BB.Editor
 
         public void GenerateLuaConstantFiles()
         {
-            foreach (System.Type type in listTypes)
+            foreach (var type in listTypes)
             {
-                currentClassName = type.FullName.Replace("+", "").Replace(".", "").Replace("`", "").Replace("&", "").Replace("[", "").Replace("]", "").Replace(",", "");
+                if (type.FullName != null)
+                    currentClassName = type.FullName.Replace("+", "").Replace(".", "").Replace("`", "").Replace("&", "")
+                        .Replace("[", "").Replace("]", "").Replace(",", "");
                 currentOutputFileFullPath = Path.Combine(rootPath, currentClassName + ".lua.txt");
                 GenLuaScriptByCSharpType(type);
             }
@@ -67,7 +71,7 @@ namespace BB.Editor
             //获取公有的，静态
             currentFieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Static);
 
-            foreach (FieldInfo info in currentFieldInfos)
+            foreach (var info in currentFieldInfos)
             {
                 if (info.IsLiteral && !info.IsInitOnly)
                 {
@@ -79,9 +83,9 @@ namespace BB.Editor
         private void GenBuffer()
         {
             buffer = "local " + currentClassName + " = {}\n";
-            foreach (FieldInfo info in constants)
+            foreach (var info in constants)
             {
-                string outputValue = GetFiledOutputValue(info);
+                var outputValue = GetFiledOutputValue(info);
                 buffer += $"{currentClassName}.{info.Name} = {outputValue}\n";
             }
 
@@ -92,7 +96,7 @@ namespace BB.Editor
         {
             using (FileStream stream = new FileStream(currentOutputFileFullPath, FileMode.Create))
             {
-                StreamWriter sw = new StreamWriter(stream);
+                var sw = new StreamWriter(stream);
                 sw.Write(buffer);
                 sw.Flush();
                 sw.Close();
@@ -114,3 +118,5 @@ namespace BB.Editor
         }
     }
 }
+
+#endif

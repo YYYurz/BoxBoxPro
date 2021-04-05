@@ -1,7 +1,5 @@
-﻿using GameFramework;
-using Hr;
+﻿#if UNITY_EDITOR
 using UnityEditor;
-using UnityEngine;
 
 namespace BB.Editor
 {
@@ -26,3 +24,5 @@ namespace BB.Editor
         }
     }
 }
+
+#endif

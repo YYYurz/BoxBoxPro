@@ -1,10 +1,9 @@
-﻿using System;
+﻿#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEditor;
 using System.Diagnostics;
-using Debug = UnityEngine.Debug;
 
 namespace BB.Editor
 {
@@ -176,3 +175,5 @@ namespace BB.Editor
         }
     }
 }
+
+#endif

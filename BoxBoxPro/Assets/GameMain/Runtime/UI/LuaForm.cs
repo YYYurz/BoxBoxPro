@@ -24,14 +24,16 @@ namespace BB
             
             Name = Name.Replace("(Clone)", "");
 
-            luaScriptTable = GameEntry.Lua.DoStringCustom( formDataInfo.LuaFile);
+            var luaScript = GameEntry.Lua.DoStringCustom(formDataInfo.LuaFile);
+            luaScriptTable = GameEntry.Lua.CallLuaFunctionCustom(luaScript, "New", luaScript);
+            
             // ReSharper disable once InvertIf
             if (luaScriptTable != null)
             {
                 luaScriptTable.Set("uiFormID", formDataInfo.FormID);
                 luaScriptTable.Set("transform", transform);
                 luaScriptTable.Set("gameObject", gameObject);
-                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnCreate");
+                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnCreate", luaScriptTable);
             }
         }
 
@@ -53,8 +55,7 @@ namespace BB
             // GameEntry.UI.OpenUIForm(Constant.UIFormID.UIFormHideMask);
             if (luaScriptTable != null)
             {
-                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnOpen", formDataInfo.UserData);
-                // GameEntry.Lua.CallLuaFunction(luaScriptTable, "Open", uiName, CachedTransform, UIForm.SerialId, formDataInfo.UserData);
+                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnOpen", luaScriptTable, formDataInfo.UserData);
             }
         }
 
@@ -62,7 +63,7 @@ namespace BB
         {
             if (luaScriptTable != null)
             {
-                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnClose");
+                GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnClose", luaScriptTable);
             }
 
             base.OnClose(isShutdown, userData);
@@ -81,7 +82,7 @@ namespace BB
         public void OnDestroy()
         {
             if (luaScriptTable == null) return;
-            GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnDestroy");
+            GameEntry.Lua.CallLuaFunction(luaScriptTable, "OnDestroy", luaScriptTable);
             luaScriptTable.Dispose();
             luaScriptTable = null;
         }

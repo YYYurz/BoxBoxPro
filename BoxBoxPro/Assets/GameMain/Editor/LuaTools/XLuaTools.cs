@@ -1,5 +1,7 @@
-﻿using GameFramework;
-using Hr;
+﻿#if UNITY_EDITOR
+
+using System;
+using GameFramework;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -13,13 +15,10 @@ namespace BB.Editor
     /// </summary>
     public class XLuaTools
     {
-        private List<string> _fileList = new List<string>();
-        private Dictionary<string, bool> _loadedFlag;
+        private List<string> fileList = new List<string>();
+        private Dictionary<string, bool> loadedFlag;
+        private string suffix = ".lua.txt";
 
-        public XLuaTools()
-        {
-
-        }
 
         /// <summary>
         /// 生成Lua文件配置
@@ -28,15 +27,14 @@ namespace BB.Editor
         {
             var strScriptsFolder = RemoveStartWith(Constant.Lua.LuaScriptsFolder, "Assets/");
             var rootPath = Path.Combine(Application.dataPath, strScriptsFolder);
-            var suffix = ".lua.txt";
-            GameUtils.CollectFilesWithSuffix(rootPath, ".lua.txt", ref _fileList);
+            GameUtils.CollectFilesWithSuffix(rootPath, ".lua.txt", ref fileList);
 
             var sb = new StringBuilder();
 
-            foreach (var file in _fileList)
+            foreach (var file in fileList)
             {
                 var path = Utility.Path.GetRegularPath(file);
-                var tempName = path.Substring(path.IndexOf("LuaScripts") + 11);
+                var tempName = path.Substring(path.IndexOf("LuaScripts", StringComparison.Ordinal) + 11);
                 var luaName = tempName.Substring(0, tempName.Length - suffix.Length);
                 var json = GameUtils.SerializeObject(new LuaFileInfo(luaName));
                 sb.Append(json);
@@ -67,3 +65,5 @@ namespace BB.Editor
         }
     }
 }
+
+#endif
