@@ -52,7 +52,8 @@ namespace BB
                 return;
             }
 
-            procedureOwner.SetData<VarInt>(Constant.ProcedureData.NextSceneId, (int)GameEnum.SCENE_TYPE.MainLobby);
+            // procedureOwner.SetData<VarInt>(Constant.ProcedureData.NextSceneId, (int)GameEnum.SCENE_TYPE.MainLobby);
+            procedureOwner.SetData<VarInt>(Constant.ProcedureData.NextSceneId, (int)GameEnum.SCENE_TYPE.HomeLand);
             ChangeState<ProcedureChangeScene>(procedureOwner);
         }
 

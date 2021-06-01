@@ -129,7 +129,7 @@ namespace BB
 
         public static string GetSceneAsset(string assetName)
         {
-            return Utility.Text.Format("Assets/Scenes/{0}.unity", assetName);
+            return Utility.Text.Format("Assets/Art/Art3D/Scenes/{0}.unity", assetName);
         }
 
         public static string GetMusicAsset(string assetName)

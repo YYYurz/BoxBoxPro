@@ -26,6 +26,7 @@
         public enum SCENE_TYPE
         {
             MainLobby = 1,
+            HomeLand = 2,
         }
 
         public enum INPUT_TYPE

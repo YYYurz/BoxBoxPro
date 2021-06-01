@@ -1,7 +1,7 @@
 Id,AssetName
 int,string
-"1","MainLobby"
-"",""
+"1","Lobby/MainLobby"
+"2","HomeLand/HomeLand"
 "",""
 "",""
 "",""

@@ -7,7 +7,7 @@ public class CameraLogic : MonoBehaviour
     public float smooth;
 
 
-    private readonly Vector3 offset = new Vector3(0f, 5f, -4f);
+    private readonly Vector3 offset = new Vector3(0f, 17f, -10f);
 
     // Update is called once per frame
     private void LateUpdate()
@@ -27,6 +27,8 @@ public class CameraLogic : MonoBehaviour
 
     public void OnStartFollowing()
     {
+        if (Camera.main == null)
+            return;
         m_CameraTransform = Camera.main.transform;
         isFollowing = true;
     }

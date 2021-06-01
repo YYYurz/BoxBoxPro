@@ -20,8 +20,6 @@ namespace BB
         {
             base.OnEnter(procedureOwner);
             Debug.Log("Enter ProcedureChangeScene  -- yzr");
-
-            // UISplash = GameObject.Find("Splash");
             
             isChangeSceneComplete = false;
             m_SceneObj = null;
@@ -76,6 +74,7 @@ namespace BB
             switch (_sceneId)
             {
                 case (int)GameEnum.SCENE_TYPE.MainLobby:
+                case (int)GameEnum.SCENE_TYPE.HomeLand:
                     ChangeState<ProcedureLobby>(procedureOwner);
                     break;
             }
